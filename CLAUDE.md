@@ -1,35 +1,21 @@
-# Sean Murphy — Personal Claude Code Workspace
+# Claude Code Workspace
 
-**Mission:** Build and showcase expertise in Analytics + AI Systems — demonstrating autonomous task execution, multi-agent orchestration, real-world data pipelines, and decision-making loops.
+**Mission:** Demonstrate multi-agent orchestration, autonomous task execution, real-world data pipelines, and structured development workflows using Claude Code.
 
 ---
 
 ## Workspace Layout
 
 ```
-ClaudeWorkspace/
-├── CLAUDE.md                  ← you are here
-├── FUTURE-IDEAS.md            ← backlog of bigger ideas & future iterations
+workspace/
+├── CLAUDE.md                  ← you are here (control plane)
+├── FUTURE-IDEAS.md            ← backlog of ideas and iterations
 ├── .claude/
 │   ├── agents/                ← specialized agent personas
 │   ├── skills/                ← slash-command skills (/skill-name)
 │   └── rules/                 ← always-on coding & workflow standards
 └── projects/                  ← individual project directories
-    └── personal-website/      ← primary active project
 ```
-
----
-
-## Active Project: Personal Website
-
-**Goal:** A live portfolio site that doesn't just *describe* AI skills — it *demonstrates* them.
-**Stack:** Netlify (hosting) · GitHub (version control + Actions) · Claude Code (agentic dev)
-**Theme:** "Sean Murphy — Analytics + AI Systems Builder"
-
-### Key Principles
-- The site itself is built by AI tools, visibly (commit history, case studies, build logs)
-- Every project section shows *how* it was built, not just *what* it does
-- Data pipelines should serve live data where possible, not static screenshots
 
 ---
 
@@ -37,7 +23,7 @@ ClaudeWorkspace/
 
 | Server | Package | Use For |
 |---|---|---|
-| `github` | `@modelcontextprotocol/server-github` | Read/search repos, manage issues and PRs, push files — prefer over `gh` CLI for file-level and API operations |
+| `github` | `@modelcontextprotocol/server-github` | Read/search repos, manage issues and PRs, push files |
 | `playwright` | `@playwright/mcp` | Browser automation, screenshots, scraping, testing web pages |
 
 > Use `/mcp` in any session to check server status and available tools.
@@ -61,15 +47,15 @@ ClaudeWorkspace/
 
 | Skill | Trigger |
 |---|---|
-| `/weekly-review` | Strategic weekly brief — what shipped, what's blocked, recommended focus, strategic questions |
-| `/systematic-debugging` | Reproduce → Isolate → Root-Cause → Fix |
+| `/weekly-review` | Strategic weekly brief — what shipped, what's blocked, recommended focus |
+| `/systematic-debugging` | Reproduce, Isolate, Root-Cause, Fix |
 | `/bootstrap-python-project` | Scaffold new Python project with full tooling |
-| `/verification-loop` | Multi-phase verify: lint → type-check → test → security |
-| `/qa-validate` | End-to-end QA — builds, pipeline runs, output correctness, UI spot-check |
+| `/verification-loop` | Multi-phase verify: lint, type-check, test, security |
+| `/qa-validate` | End-to-end QA — builds, pipeline runs, output correctness |
 | `/python-patterns` | Python best practice reference |
 | `/python-testing` | pytest guide and testing patterns |
 | `/github-workflow` | PR creation, Actions setup, repo management |
-| `/portfolio-updater` | Add a new project to the personal website |
+| `/portfolio-updater` | Add a new project to the portfolio site |
 | `/create` | Scaffold new agents, skills, or rules |
 | `/create-agent` | Create a new agent persona |
 | `/create-skill` | Create a new skill |
@@ -111,6 +97,5 @@ ClaudeWorkspace/
 ## Setup Notes
 
 - `.claude/agents/`, `.claude/skills/`, `.claude/rules/` are the single source of truth
-- No three-layer sync — edit files directly in `.claude/`
-- Version control: GitHub (`master` branch on personal-website, feature branches for experiments)
+- Edit files directly in `.claude/` — no sync layers or indirection
 - See `FUTURE-IDEAS.md` for the backlog of bigger things to build

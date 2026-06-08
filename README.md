@@ -76,6 +76,7 @@ Rules apply automatically to files matching their glob pattern. No invocation ne
 | [`git-workflow`](.claude/rules/git-workflow.md) | All files | Conventional commits, branch naming, PR templates, pre-push checklist. |
 | [`python-style`](.claude/rules/python-style.md) | `**/*.py` | Type hints, ruff formatting, pathlib, dataclasses over bare dicts. |
 | [`sql-style`](.claude/rules/sql-style.md) | `**/*.sql` | CTEs over subqueries, explicit JOINs, named CTE conventions. |
+| [`writing-style`](.claude/rules/writing-style.md) | `**/*.md`, `**/*.txt` | Voice, tone, AI trope avoidance, content structure patterns. |
 
 ### CLAUDE.md — The Control Plane
 

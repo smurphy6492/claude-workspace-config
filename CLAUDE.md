@@ -71,6 +71,7 @@ workspace/
 | `git-workflow.md` | All files — GitHub conventions, commit style, PR workflow |
 | `sql-style.md` | `**/*.sql` — SQL formatting and naming |
 | `python-style.md` | `**/*.py` — Python conventions |
+| `writing-style.md` | `**/*.md`, `**/*.txt`, `**/projects.ts` — prose voice, AI trope avoidance, content patterns |
 
 ---
 

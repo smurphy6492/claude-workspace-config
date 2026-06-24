@@ -40,6 +40,7 @@ workspace/
 | `web-developer` | HTML/CSS/JS/React — frontend and site work |
 | `content-writer` | Project case studies, READMEs, About copy, portfolio text |
 | `data-pipeline` | Data pipeline design, ETL patterns, API integrations |
+| `plan-judge` | Independent reviewer — scores a draft plan against the rubric, flags methodology gaps |
 
 ---
 
@@ -51,6 +52,7 @@ workspace/
 | `/systematic-debugging` | Reproduce, Isolate, Root-Cause, Fix |
 | `/bootstrap-python-project` | Scaffold new Python project with full tooling |
 | `/verification-loop` | Multi-phase verify: lint, type-check, test, security |
+| `/improve-plan` | Independent judge scores a draft plan, then revises it before execution |
 | `/qa-validate` | End-to-end QA — builds, pipeline runs, output correctness |
 | `/python-patterns` | Python best practice reference |
 | `/python-testing` | pytest guide and testing patterns |
@@ -81,6 +83,7 @@ workspace/
 |---|---|
 | Review the week / step back strategically | `/weekly-review` |
 | Plan before building anything | `planner` agent |
+| Pressure-test a plan before building | `/improve-plan` |
 | Debug a broken thing | `/systematic-debugging` |
 | Start a new Python project | `/bootstrap-python-project` |
 | Review code before committing | `code-reviewer` or `python-reviewer` agent |

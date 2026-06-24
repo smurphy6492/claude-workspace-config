@@ -13,6 +13,18 @@ For any task that involves creating or significantly modifying files:
 
 **Never start writing code for a complex task without a plan.**
 
+### Offer to pressure-test the plan
+
+After producing an initial plan for a substantial or data/analysis task, **offer to run
+`/improve-plan`** before execution — an independent judge scores the plan against the
+plan-quality rubric and flags methodology gaps the author can't see, then revises from
+them. Present it as a quick yes/no and let the user decide; do not run it automatically.
+
+Skip the offer for trivial plans (a rename, a one-line fix, a single-file edit) where the
+loop would be overkill. The judgment of "is this plan substantial enough to be worth
+pressure-testing" is yours to make — when in doubt on a data/analysis plan, offer it,
+since that is where unseen methodology footguns are most expensive.
+
 ---
 
 ## 2. Use Agent Teams for Complex Work

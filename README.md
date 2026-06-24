@@ -64,6 +64,7 @@ Skills are guided workflows invoked with `/skill-name`. They define phases, gate
 | [`/weekly-review`](.claude/skills/weekly-review/SKILL.md) | Strategic weekly brief across all projects | Produces *strategic* output, not a commit log replay. |
 | [`/bootstrap-python-project`](.claude/skills/bootstrap-python-project/SKILL.md) | Scaffold a new Python project with full tooling | One command to get pyproject.toml, ruff, mypy, pytest, pre-commit, and directory structure. |
 | [`/qa-validate`](.claude/skills/qa-validate/SKILL.md) | End-to-end functional QA | Distinct from verification-loop — this checks that features *actually work*, not just that code passes linting. |
+| [`/add-gates`](.claude/skills/add-gates/SKILL.md) | Install CI + pre-commit enforcement into a target repo | Reads the repo's existing tooling and writes the GitHub Actions workflow plus pre-commit wiring, so the checks run on their own instead of being remembered. |
 | [`/github-workflow`](.claude/skills/github-workflow/SKILL.md) | PR creation, Actions setup, repo management | Standardizes the GitHub workflow so PRs have consistent format and checks. |
 | [`/portfolio-updater`](.claude/skills/portfolio-updater/SKILL.md) | Add a new project to the portfolio site | Guided process: gather details, generate content, update site files, open PR. |
 | [`/create`](.claude/skills/create/SKILL.md) | Scaffold new agents, skills, or rules | The workspace builds its own tooling. |
@@ -79,6 +80,7 @@ Rules apply automatically to files matching their glob pattern. No invocation ne
 | [`python-style`](.claude/rules/python-style.md) | `**/*.py` | Type hints, ruff formatting, pathlib, dataclasses over bare dicts. |
 | [`sql-style`](.claude/rules/sql-style.md) | `**/*.sql` | CTEs over subqueries, explicit JOINs, named CTE conventions. |
 | [`writing-style`](.claude/rules/writing-style.md) | `**/*.md`, `**/*.txt` | Voice, tone, AI trope avoidance, content structure patterns. |
+| [`mechanical-gates`](.claude/rules/mechanical-gates.md) | All files | Every repo enforces lint, type-check, and tests as CI and pre-commit hooks, not skills you remember to run. |
 
 ### CLAUDE.md — The Control Plane
 

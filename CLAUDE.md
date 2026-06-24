@@ -54,6 +54,7 @@ workspace/
 | `/verification-loop` | Multi-phase verify: lint, type-check, test, security |
 | `/improve-plan` | Independent judge scores a draft plan, then revises it before execution |
 | `/qa-validate` | End-to-end QA — builds, pipeline runs, output correctness |
+| `/add-gates` | Install CI + pre-commit enforcement into a target repo |
 | `/python-patterns` | Python best practice reference |
 | `/python-testing` | pytest guide and testing patterns |
 | `/github-workflow` | PR creation, Actions setup, repo management |
@@ -74,6 +75,7 @@ workspace/
 | `sql-style.md` | `**/*.sql` — SQL formatting and naming |
 | `python-style.md` | `**/*.py` — Python conventions |
 | `writing-style.md` | `**/*.md`, `**/*.txt`, `**/projects.ts` — prose voice, AI trope avoidance, content patterns |
+| `mechanical-gates.md` | All files — every repo enforces lint, type-check, and test as CI and hooks, not optional skills |
 
 ---
 

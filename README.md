@@ -49,6 +49,7 @@ Each agent has a defined role, tools, model, and detailed instructions. They don
 | [`python-reviewer`](.claude/agents/python-reviewer.md) | Python code review | Checks types, patterns, security, testing. Outputs structured severity levels. |
 | [`code-reviewer`](.claude/agents/code-reviewer.md) | General code review (any language) | Same rigor as the Python reviewer, adapted per file type. |
 | [`plan-judge`](.claude/agents/plan-judge.md) | Independent plan review | Scores a draft plan against a fixed rubric and finds the methodology gaps the author can't see, because it never wrote the plan. |
+| [`staff-ds-reviewer`](.claude/agents/staff-ds-reviewer.md) | Hiring-manager review of a finished project | Reviews the whole deliverable — code, methodology, narrative — as a staff-level hiring manager, and names the interview question each finding exposes. |
 
 **Design decision:** Separate agents per domain instead of one general-purpose agent. Each agent carries only the context it needs, so instructions stay focused and don't compete.
 
@@ -61,6 +62,8 @@ Skills are guided workflows invoked with `/skill-name`. They define phases, gate
 | [`/systematic-debugging`](.claude/skills/systematic-debugging/SKILL.md) | 4-phase debugging: Reproduce, Isolate, Root-Cause, Fix | Enforces discipline — no jumping to fixes before understanding the bug. |
 | [`/verification-loop`](.claude/skills/verification-loop/SKILL.md) | Pre-commit checks: lint, type-check, test, security scan | Multiple modes (`full`, `quick`, `security`) so it fits any context. |
 | [`/improve-plan`](.claude/skills/improve-plan/SKILL.md) | Score a draft plan with an independent judge, then revise it from the critique | The judge is a separate agent with a fixed rubric, so it catches the methodology footguns — leaked backtests, wrong metrics — that pass a structural read. |
+| [`/project-review`](.claude/skills/project-review/SKILL.md) | Hiring-manager review of a finished project, then fix the criticals | Triages findings by severity, fixes the critical ones with approval, re-reviews to confirm, and backlogs the rest. The after-build bookend to `/improve-plan`. |
+| [`/interview-explainer`](.claude/skills/interview-explainer/SKILL.md) | First-principles HTML walkthrough of a project or technique | Explains the math and the real code, with an interview Q&A layer, so a project can be defended in depth. Grounded in the actual implementation, with a required accuracy pass. |
 | [`/weekly-review`](.claude/skills/weekly-review/SKILL.md) | Strategic weekly brief across all projects | Produces *strategic* output, not a commit log replay. |
 | [`/bootstrap-python-project`](.claude/skills/bootstrap-python-project/SKILL.md) | Scaffold a new Python project with full tooling | One command to get pyproject.toml, ruff, mypy, pytest, pre-commit, and directory structure. |
 | [`/qa-validate`](.claude/skills/qa-validate/SKILL.md) | End-to-end functional QA | Distinct from verification-loop — this checks that features *actually work*, not just that code passes linting. |

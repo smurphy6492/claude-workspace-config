@@ -41,6 +41,7 @@ workspace/
 | `content-writer` | Project case studies, READMEs, About copy, portfolio text |
 | `data-pipeline` | Data pipeline design, ETL patterns, API integrations |
 | `plan-judge` | Independent reviewer — scores a draft plan against the rubric, flags methodology gaps |
+| `staff-ds-reviewer` | Hiring-manager review of a finished project — code, methodology, narrative, with the interview question each finding exposes |
 
 ---
 
@@ -53,6 +54,8 @@ workspace/
 | `/bootstrap-python-project` | Scaffold new Python project with full tooling |
 | `/verification-loop` | Multi-phase verify: lint, type-check, test, security |
 | `/improve-plan` | Independent judge scores a draft plan, then revises it before execution |
+| `/project-review` | Hiring-manager review of a finished project — severity-triaged findings, fix criticals with approval, re-review, backlog the rest |
+| `/interview-explainer` | First-principles HTML walkthrough of a project or technique — math, real code, worked example, and an interview Q&A layer |
 | `/qa-validate` | End-to-end QA — builds, pipeline runs, output correctness |
 | `/add-gates` | Install CI + pre-commit enforcement into a target repo |
 | `/python-patterns` | Python best practice reference |
@@ -86,6 +89,8 @@ workspace/
 | Review the week / step back strategically | `/weekly-review` |
 | Plan before building anything | `planner` agent |
 | Pressure-test a plan before building | `/improve-plan` |
+| Review a finished project like a hiring manager | `/project-review` |
+| Learn to explain a project/technique in an interview | `/interview-explainer` |
 | Debug a broken thing | `/systematic-debugging` |
 | Start a new Python project | `/bootstrap-python-project` |
 | Review code before committing | `code-reviewer` or `python-reviewer` agent |

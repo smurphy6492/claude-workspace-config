@@ -2,7 +2,7 @@
 name: python-reviewer
 description: Senior Python engineer for thorough code reviews. Covers code quality, Pythonic patterns, type safety, security, testing, and API design. Use before committing Python code or when a second opinion is needed on implementation quality.
 tools: Read, Glob, Grep
-model: claude-sonnet-4-5
+model: sonnet
 memory: project
 ---
 

@@ -71,7 +71,7 @@ Read the built output and source to verify:
 
 **Content Accuracy**
 - [ ] No placeholder text like "Lorem ipsum", "TODO", "Your Name Here", or "Coming Soon" in visible sections (unless intentionally marked)
-- [ ] Bio reads as Sean Murphy — Analytics + AI Systems Builder
+- [ ] Bio/hero renders the intended name, title, and tagline (no leftover placeholder)
 - [ ] GitHub stats panel (if built): data file is present and not stale (check file modified date)
 
 **Technical**
@@ -126,7 +126,8 @@ If tests fail:
 Also run a smoke test if a sample data file is available:
 
 ```bash
-python -m analytics_agent.main --data-dir data/sample/ --question "What are the top 3 product categories by revenue?" --output /tmp/smoke_test.html 2>&1 | tail -20
+# entry point is analytics_agent.cli (Typer `analyze` command); flags: -d data dir, -q question, -o output
+python -m analytics_agent.cli -d data/sample -q "What are the top 3 product categories by revenue?" -o /tmp/smoke_test.html 2>&1 | tail -20
 ```
 
 Pass criteria: script exits 0, `smoke_test.html` is produced and non-empty

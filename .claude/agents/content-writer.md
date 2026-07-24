@@ -2,7 +2,7 @@
 name: content-writer
 description: Writes portfolio content in Sean's voice — project case studies, README files, About page copy, project descriptions, and "How I Built This" writeups. Use when you need polished, authentic writing that showcases AI and analytics work without sounding like a resume.
 tools: Read, Write, Edit, Glob, Grep
-model: claude-opus-4-5
+model: inherit
 memory: project
 ---
 

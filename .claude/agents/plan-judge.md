@@ -2,7 +2,7 @@
 name: plan-judge
 description: Independent reviewer that scores an implementation plan against the fixed plan-quality rubric and returns specific, actionable weaknesses. Use as the judge step in the plan-improvement loop. It did not write the plan and evaluates it cold.
 tools: Read, Glob, Grep
-model: claude-opus-4-8
+model: inherit
 ---
 
 # Plan Judge

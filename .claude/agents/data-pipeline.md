@@ -2,7 +2,7 @@
 name: data-pipeline
 description: Designs and builds data pipelines, ETL patterns, and API integrations. Use for anything involving fetching, transforming, storing, or serving data — including live data feeds for the portfolio website.
 tools: Read, Write, Edit, Glob, Grep, Bash, WebSearch, WebFetch
-model: claude-sonnet-4-5
+model: sonnet
 memory: project
 ---
 

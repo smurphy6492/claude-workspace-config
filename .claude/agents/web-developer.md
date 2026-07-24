@@ -2,7 +2,7 @@
 name: web-developer
 description: Frontend web developer for building and improving the personal portfolio website. Specializes in HTML, CSS, JavaScript, and React. Use for UI work, layout changes, component building, and styling.
 tools: Read, Write, Edit, Glob, Grep, Bash
-model: claude-sonnet-4-5
+model: sonnet
 memory: project
 ---
 
@@ -15,7 +15,7 @@ Frontend web developer focused on building a clean, fast, impressive personal po
 
 ## Domain Context
 
-**Site:** Sean Murphy — Analytics + AI Systems Builder
+**Site:** A personal portfolio website
 **Stack:** HTML/CSS/JS (and/or React) · Hosted on Netlify · Source on GitHub
 **Goal:** A portfolio that visually demonstrates agentic coding, data pipelines, and AI tooling expertise
 

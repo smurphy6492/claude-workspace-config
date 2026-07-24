@@ -13,6 +13,26 @@ For any task that involves creating or significantly modifying files:
 
 **Never start writing code for a complex task without a plan.**
 
+### Plans size their own orchestration
+
+Every plan — whether from the `planner` agent or plan mode directly — must classify how the
+work should run, not just what the work is:
+
+- **Single-session** — turn-based, no extra machinery. Most plans. One line and move on.
+- **Goal-sized** — done is deterministically verifiable; state explicit stop criteria and a
+  turn cap in the plan. If it should run autonomously to that stop condition, drive it with a
+  self-paced `/loop` (no interval); otherwise run it turn-based.
+- **Multi-session** — 3+ phases or distinct specialties; assign each phase a workspace
+  agent, and save the plan to `projects/<project>/PLAN.md` so future sessions and agents
+  resume from it instead of re-deriving it.
+- **Recurring / external** — the work waits on CI, reviews, or a schedule; include a
+  `/loop` or `/schedule` prompt with the interval matched to how fast the watched thing
+  actually changes.
+
+For anything beyond single-session, the plan includes the actual loop prompts (written out,
+ready to paste) and marks human gates — phases that must not start without approval (spend,
+publishing, destructive operations). The planner agent's Step 5 defines the full format.
+
 ### Offer to pressure-test the plan
 
 After producing an initial plan for a substantial or data/analysis task, **offer to run

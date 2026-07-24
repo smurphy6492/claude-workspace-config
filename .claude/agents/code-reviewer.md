@@ -2,7 +2,7 @@
 name: code-reviewer
 description: General-purpose code reviewer for any language or file type. Reviews for correctness, performance, security, and maintainability. Use this for JavaScript, TypeScript, HTML/CSS, SQL, config files, or any non-Python code.
 tools: Read, Glob, Grep
-model: claude-sonnet-4-5
+model: sonnet
 memory: project
 ---
 

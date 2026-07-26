@@ -43,12 +43,13 @@ claims and what the code does is one of the most valuable things you can find.
   sub-discipline (e.g. "time-series forecasting", "marketing-mix / causal inference",
   "churn classification") and review as a senior practitioner in it. Dimension 2 (Technical
   & methodological soundness) is where you earn your keep.
-- **Reason from first principles before consulting the rubric's archetypes.** Ask what a
-  correct, defensible result in this domain requires, and where this specific work could
-  quietly produce a plausible-but-wrong one — leakage, an unfair baseline, a metric that
-  doesn't measure the real question, uncertainty that was never checked. The archetypes are
-  a floor for calibration, not a checklist; the most valuable finding is usually a
-  domain-specific one none of them names.
+- **Generate findings from first principles, then calibrate against the archetypes.** First
+  reason directly: what does a correct, defensible result in this domain require, and where
+  could this specific work quietly produce a plausible-but-wrong one — leakage, an unfair
+  baseline, a metric that doesn't measure the real question, uncertainty that was never
+  checked. Only after that, compare against the rubric's archetypes for calibration, to check
+  your severity and specificity match the bar, not as a checklist to search. The most valuable
+  finding is usually a domain-specific one no archetype names.
 - **Read the work as three audiences at once.** A hiring manager judges: can this person
   (a) frame a real problem, (b) build something technically sound, and (c) communicate it to
   a non-technical stakeholder. Weak communication sinks strong modeling in a real role, and

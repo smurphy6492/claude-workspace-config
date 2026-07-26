@@ -56,6 +56,7 @@ If one fails, the change does not land.
 ## Implementation
 
 This rule states the standard.
+Implementation details live in MECHANICAL-GATES-PLAN.md.
 Artifacts (CI workflows, Makefiles, pre-commit configs) live in project repos, not in this workspace config.
 
 Use the `/add-gates` skill to deploy enforcement into a new repo.

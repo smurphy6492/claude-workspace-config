@@ -48,7 +48,10 @@ dependencies = []
 
 [project.optional-dependencies]
 dev = [
-    "ruff>=0.4",
+    # Keep this floor's major.minor aligned with the ruff-pre-commit `rev` in
+    # .pre-commit-config.yaml, or `make check` (this ruff) and the pre-commit hook
+    # (pinned ruff) will disagree on import sorting and fight each other.
+    "ruff>=0.15",
     "mypy>=1.10",
     "pytest>=8.0",
     "pytest-cov",
@@ -60,7 +63,10 @@ line-length = 88
 target-version = "py311"
 
 [tool.ruff.lint]
-select = ["E", "F", "I", "UP", "B", "SIM"]
+# E/F pycodestyle+pyflakes, I import order, UP pyupgrade, B bugbear, SIM simplify,
+# N pep8-naming, PTH use-pathlib, T20 no-print. This set makes the conventions in
+# rules/python-style.md machine-enforced rather than prose.
+select = ["E", "F", "I", "UP", "B", "SIM", "N", "PTH", "T20"]
 ignore = []
 
 [tool.mypy]
@@ -99,8 +105,16 @@ clean:
 ### Step 4 — .pre-commit-config.yaml
 ```yaml
 repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+  # Keep this rev's major.minor in sync with the `ruff` floor in pyproject dev deps
+  # (bump both together). A stale pin here sorts imports differently than the ruff
+  # `make check` installs, and the two gate layers fight (I001 loops on every run).
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.4.0
+    rev: v0.15.22
     hooks:
       - id: ruff
         args: [--fix]
@@ -111,6 +125,10 @@ repos:
       - id: mypy
         additional_dependencies: []
 ```
+
+For markdown and SQL linting on top of this base, run `/add-gates` — it deploys the
+`markdownlint` + straight-quotes + `sqlfluff` hooks and their configs (kept out of the Python
+scaffold so pure-Python repos don't pull in a Node/SQL toolchain they don't need).
 
 ### Step 5 — .gitignore
 ```

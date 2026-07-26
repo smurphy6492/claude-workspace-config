@@ -71,7 +71,7 @@ Read the built output and source to verify:
 
 **Content Accuracy**
 - [ ] No placeholder text like "Lorem ipsum", "TODO", "Your Name Here", or "Coming Soon" in visible sections (unless intentionally marked)
-- [ ] Bio/hero renders the intended name, title, and tagline (no leftover placeholder)
+- [ ] Bio reads as Sean Murphy — Analytics + AI Systems Builder
 - [ ] GitHub stats panel (if built): data file is present and not stale (check file modified date)
 
 **Technical**

@@ -9,7 +9,7 @@ Copy and fill in this skeleton when creating a new agent.
 name: <name>                          # lowercase, hyphenated
 description: <when to invoke>         # used for agent selection routing
 tools: Read, Write, Edit, Bash        # comma-separated, only what's needed
-model: claude-sonnet-4-5              # sonnet for most, opus for complex reasoning
+model: sonnet                         # alias, not dated ID — sonnet for most, inherit for complex reasoning
 memory: project                       # project = sees CLAUDE.md; user = sees user preferences
 # skills: []                          # optional: pre-loaded skills
 # maxTurns: 20                        # optional: limit autonomous turns

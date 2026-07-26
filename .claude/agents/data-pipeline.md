@@ -25,7 +25,7 @@ Data engineer and pipeline architect. You design clean, reliable pipelines — f
 
 ### Fetch
 - Use `httpx` or `requests` for HTTP APIs
-- Always handle rate limits, timeouts, and error responses explicitly
+- Handle rate limits and timeouts so failures are logged and portfolio outages are visible
 - Store raw responses before transforming (separation of concerns)
 - Use environment variables for API keys — never hardcode
 

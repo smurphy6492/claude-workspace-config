@@ -33,6 +33,9 @@ It does not run the checks itself (use `/verification-loop` for that).
 | Artifact | Location | Condition |
 |---|---|---|
 | GitHub Actions workflow | `.github/workflows/ci.yml` | Always (unless `--pre-commit-only`) |
+| markdownlint config | `.markdownlint.jsonc` | Always (every repo has markdown) |
+| sqlfluff config | `.sqlfluff` | If the repo has `.sql` files |
+| Doc/SQL pre-commit hooks | `.pre-commit-config.yaml` | If a base pre-commit config exists |
 | pre-commit wired | Local git hooks | If `.pre-commit-config.yaml` exists |
 
 ---
@@ -101,12 +104,86 @@ jobs:
 
       - name: Run checks
         run: make check
+
+      - name: Run pre-commit hooks (docs, SQL, hygiene)
+        run: |
+          pip install pre-commit
+          pre-commit run --all-files
 ```
 
 Adjustments:
 - If the repo uses a different check command, replace `make check` with that command
 - If `requires-python` specifies a different version, use that version
 - If the repo has additional setup steps (e.g., downloading models), add them before `Run checks`
+
+### Step 2.5: Deploy Doc and SQL Linters
+
+These gates move the deterministic parts of `rules/writing-style.md` and `rules/sql-style.md` out of
+prose and into linters. Deploy them conditionally on what the repo contains.
+
+**Always (every repo has markdown):** write `.markdownlint.jsonc` and add the markdownlint +
+straight-quotes hooks.
+
+`.markdownlint.jsonc`:
+```jsonc
+{
+  "default": true,
+  "MD013": false,              // one sentence per line means long lines; don't cap length
+  "MD024": { "siblings_only": true },  // duplicate headings ok across sections
+  "MD033": false,              // inline HTML allowed in docs
+  "MD041": false,              // first line need not be a top-level heading
+  "MD060": false               // compact table pipes are the workspace style; don't enforce spacing
+}
+```
+
+**Only if the repo has `.sql` files:** write `.sqlfluff` and add the sqlfluff hook. Set `dialect`
+to the repo's engine (`duckdb`, `bigquery`, `snowflake`, `postgres`, or `ansi`).
+
+`.sqlfluff`:
+```ini
+[sqlfluff]
+dialect = ansi
+max_line_length = 120
+
+[sqlfluff:rules:capitalisation.keywords]
+capitalisation_policy = upper
+
+[sqlfluff:rules:capitalisation.identifiers]
+capitalisation_policy = lower
+
+[sqlfluff:rules:capitalisation.functions]
+extended_capitalisation_policy = upper
+```
+
+**Append the hooks to `.pre-commit-config.yaml`** (if it exists; if not, run
+`/bootstrap-python-project` first to create the base config, then re-run this skill):
+```yaml
+  - repo: https://github.com/DavidAnson/markdownlint-cli2
+    rev: v0.13.0
+    hooks:
+      - id: markdownlint-cli2
+  - repo: local
+    hooks:
+      - id: no-smart-quotes
+        name: no smart quotes (use straight quotes in md/txt)
+        language: pygrep
+        # Must be alternation, NOT a character class. pygrep compiles the pattern
+        # as bytes and scans file bytes, so [‘’“”] collapses to a class of single
+        # bytes — including 0xe2, the lead byte of every em dash and box-drawing
+        # char — and false-flags clean prose. Alternation matches each curly
+        # quote's full 3-byte UTF-8 sequence.
+        entry: "‘|’|“|”"
+        files: '\.(md|txt)$'
+  # SQL block — include only when the repo has .sql files
+  - repo: https://github.com/sqlfluff/sqlfluff
+    rev: 3.0.7
+    hooks:
+      - id: sqlfluff-lint
+```
+
+Don't restate lint rules in the workspace rule files — the config is the source of truth. The rule
+files carry only what the linter can't check (voice, CTE naming vocabulary, the context-dependent
+`SELECT *` call).
 
 ### Step 3: Wire Pre-Commit (if applicable)
 

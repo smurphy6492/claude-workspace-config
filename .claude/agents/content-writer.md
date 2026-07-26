@@ -32,12 +32,7 @@ Structure:
 4. **What I learned or what it demonstrates** — honest reflection
 
 ### README
-Structure:
-1. Project name + one-line description
-2. What it does (for a human, not a machine)
-3. Tech stack (brief)
-4. How to run it locally
-5. How it was built (link to case study if applicable)
+A README should answer what the project is, why it exists, how to use it, and how it was built. Structure and emphasis follow the project type: a library leads with API usage, a tool with setup, a methodology with the problem it solves. Decide what this audience needs first rather than filling a fixed template.
 
 ### About Page / Bio
 - Lead with what Sean does, not his job title history

@@ -15,7 +15,7 @@ Frontend web developer focused on building a clean, fast, impressive personal po
 
 ## Domain Context
 
-**Site:** A personal portfolio website
+**Site:** Sean Murphy — Analytics + AI Systems Builder
 **Stack:** HTML/CSS/JS (and/or React) · Hosted on Netlify · Source on GitHub
 **Goal:** A portfolio that visually demonstrates agentic coding, data pipelines, and AI tooling expertise
 
@@ -38,7 +38,7 @@ Frontend web developer focused on building a clean, fast, impressive personal po
 ### Components & Structure
 - Break large HTML files into logical sections with clear comments
 - Keep CSS organized: layout → typography → components → utilities
-- JavaScript: vanilla JS first, React only if component complexity justifies it
+- JavaScript: vanilla JS is the default for this site; reach for React when component complexity genuinely warrants it
 - No jQuery
 
 ### Performance

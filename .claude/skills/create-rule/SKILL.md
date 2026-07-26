@@ -16,44 +16,24 @@ Creates a new rule file in `.claude/rules/`.
 
 ---
 
-## Step 1 — Gather Requirements
+Three phases. The order matters only where noted: the conflict check and template load are mandatory gates and must happen before writing the file.
 
-Ask or infer:
+## Understand the rule
+
+Gather or infer:
 - **Name** — kebab-case, 2-4 words (e.g., `api-conventions`, `test-standards`)
-- **Purpose** — what behavior or standard does this rule enforce?
-- **Scope** — all files, or specific file types?
-  - All files: no frontmatter needed
-  - Specific files: use `paths:` frontmatter with glob patterns
+- **Purpose** — what behavior or standard this rule enforces
+- **Scope** — all files (no frontmatter) or specific file types (`paths:` frontmatter with glob patterns)
 
----
+## Verify and load context (required before writing)
 
-## Step 2 — Check Existing Rules
+- **Check for conflicts.** Read all files in `.claude/rules/` and confirm no existing rule has the same name or purpose and none significantly overlaps. If there is overlap, ask whether to extend the existing rule instead of creating a new one. This check is mandatory; skipping it produces duplicate or contradictory rules.
+- **Load the templates.** Read `.claude/skills/create-rule/references/rule-template.md` and `.claude/skills/create-rule/references/rule-frontmatter-ref.md`.
 
-Read all files in `.claude/rules/` and check:
-- No rule with the same name or purpose
-- No significant overlap with existing rules
-- If overlap: ask whether to extend existing rule or create new
+## Write and confirm
 
----
+Generate the rule file at `.claude/rules/<name>.md`. Unconditional rules (apply to everything) need no frontmatter; path-scoped rules use `paths:` glob frontmatter:
 
-## Step 3 — Load Templates
-
-Read:
-- `.claude/skills/create-rule/references/rule-template.md`
-- `.claude/skills/create-rule/references/rule-frontmatter-ref.md`
-
----
-
-## Step 4 — Generate Rule File
-
-**Unconditional rule** (applies to everything):
-```markdown
-# Rule Name
-
-[Rule content — specific, actionable standards]
-```
-
-**Path-scoped rule** (applies to specific file types):
 ```markdown
 ---
 paths:
@@ -65,16 +45,7 @@ paths:
 [Rule content]
 ```
 
-### Writing Good Rules
-- Be specific and actionable — not "write clean code"
-- Use examples showing correct and incorrect approaches
-- Keep each rule focused on one concern
-- Use headings to organize multiple sub-rules
-- Avoid overlap with existing rules
-
----
-
-## Step 5 — Confirm
+Good rules are specific and actionable (not "write clean code"), show correct and incorrect examples, keep one concern each, and don't overlap existing rules. Then confirm:
 
 ```
 ## Rule Created: <name>

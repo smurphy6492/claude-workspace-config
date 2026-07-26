@@ -11,7 +11,7 @@ Complete reference for YAML frontmatter fields in `.claude/agents/*.md` files.
 | `name` | string | Agent identifier. Lowercase, hyphenated. Used for routing and display. |
 | `description` | string | When/why to invoke this agent. Used by Claude to select the right agent. |
 | `tools` | string | Comma-separated list of allowed tools. |
-| `model` | string | Model ID (see below). |
+| `model` | string | Model alias (see below). |
 
 ---
 
@@ -28,13 +28,19 @@ Complete reference for YAML frontmatter fields in `.claude/agents/*.md` files.
 
 ---
 
-## Model IDs
+## Model Aliases
 
-| Model | ID | When to Use |
+Always use aliases, never dated model IDs (`claude-sonnet-4-5`). Aliases resolve to the
+latest model in each family automatically, so agents never silently fall behind. Pin a
+dated ID only when the agent's behavior must stay stable across model releases (e.g., a
+judge whose scores are calibrated).
+
+| Alias | Resolves To | When to Use |
 |---|---|---|
-| Claude Opus 4.5 | `claude-opus-4-5` | Complex reasoning, architecture, writing |
-| Claude Sonnet 4.5 | `claude-sonnet-4-5` | Most tasks — fast and capable |
-| Claude Haiku 4.5 | `claude-haiku-4-5` | Simple, high-volume, latency-sensitive tasks |
+| `inherit` | The session's current model | Complex reasoning, architecture, writing — matches the model you chose for the session |
+| `opus` | Latest Opus | Complex reasoning when it must not depend on session settings |
+| `sonnet` | Latest Sonnet | Most tasks — fast and capable |
+| `haiku` | Latest Haiku | Simple, high-volume, latency-sensitive tasks |
 
 ---
 
@@ -65,7 +71,7 @@ MCP tools (use full name):
 name: api-designer
 description: Designs REST API contracts and OpenAPI specs. Use when planning a new API or reviewing an existing one.
 tools: Read, Write, WebSearch
-model: claude-sonnet-4-5
+model: sonnet
 ---
 ```
 
@@ -76,7 +82,7 @@ model: claude-sonnet-4-5
 name: data-pipeline
 description: Designs and builds ETL pipelines and API integrations. Use for data fetching, transformation, and serving.
 tools: Read, Write, Edit, Bash, Glob, Grep, WebSearch, WebFetch
-model: claude-sonnet-4-5
+model: sonnet
 memory: project
 skills:
   - python-patterns

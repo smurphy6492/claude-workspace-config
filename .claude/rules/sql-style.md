@@ -9,46 +9,39 @@ Standards for SQL formatting and naming conventions.
 
 ---
 
-## Formatting
+## Enforcement is the source of truth
 
-- **CTEs over subqueries** — always prefer `WITH` CTEs for readability
-- **One column per line** in SELECT statements
-- **Explicit JOIN syntax** — always write `INNER JOIN`, `LEFT JOIN`, etc. (never comma joins)
-- **Uppercase keywords** — `SELECT`, `FROM`, `WHERE`, `JOIN`, `GROUP BY`, `ORDER BY`
-- **Lowercase identifiers** — table names, column names, CTE names
-- **Trailing commas** on all but the last column (or leading — pick one and be consistent)
-- **COALESCE for null handling** — make null handling explicit, don't rely on implicit behavior
+Formatting is enforced by `sqlfluff`, not by this document. The canonical `.sqlfluff` config is what
+`/add-gates` deploys: keyword capitalization upper, identifier capitalization lower, function
+capitalization upper, plus sqlfluff's default layout rules (indentation, one column per line,
+consistent commas, explicit whitespace, `WITH`/CTE structure). Set the `dialect` per repo
+(`duckdb`, `bigquery`, `ansi`, etc.). If a formatting rule can be enforced, it lives in the config.
 
 ---
 
-## CTE Naming Conventions
+## Conventions sqlfluff can't (or shouldn't) enforce
 
-Name CTEs by what transformation they perform:
+- **CTEs over subqueries** — prefer `WITH` CTEs for readability.
+- **CTE naming by transformation** — this shared vocabulary is convention, not lint:
 
-| Pattern | Example |
-|---|---|
-| `source` | raw table alias with no transformation |
-| `renamed` | column aliases and casts |
-| `filtered` | rows removed |
-| `joined` | two or more tables combined |
-| `aggregated` | GROUP BY applied |
-| `final` | last CTE before the SELECT |
+  | Pattern | Meaning |
+  |---|---|
+  | `source` | raw table alias, no transformation |
+  | `renamed` | column aliases and casts |
+  | `filtered` | rows removed |
+  | `joined` | two or more tables combined |
+  | `aggregated` | GROUP BY applied |
+  | `final` | last CTE before the SELECT |
 
----
-
-## Column Naming
-- `snake_case` for all column names
-- Boolean columns: `is_active`, `has_subscription`, `was_refunded`
-- Date columns: `created_at`, `updated_at`, `order_date`
-- ID columns: `user_id`, `order_id` (not just `id` in joined queries)
-- Avoid abbreviations unless universally understood (`qty` → `quantity`)
-
----
-
-## Comments
-- Comment non-obvious business logic with `-- reason`
-- Comment complex JOIN conditions
-- No need to comment obvious things (`-- select all users`)
+- **Column naming** — snake_case; booleans `is_active` / `has_subscription` / `was_refunded`; dates
+  `created_at` / `order_date`; IDs `user_id` not bare `id` in joined queries; avoid abbreviations
+  (`quantity` not `qty`).
+- **COALESCE for null handling** — make null handling explicit where it matters.
+- **No `SELECT *` in production queries** — a judgment call, not a blanket ban. A final passthrough
+  CTE (`SELECT * FROM final`) is fine; an upstream `SELECT *` that hides schema drift is not. This is
+  left to judgment rather than linted, because the correct answer depends on position in the query.
+- **Comments** — explain non-obvious business logic and complex JOINs with `-- reason`; don't
+  comment the obvious.
 
 ---
 
@@ -89,12 +82,3 @@ final AS (
 
 SELECT * FROM final
 ```
-
----
-
-## Anti-Patterns
-- ❌ `SELECT *` in production queries
-- ❌ Subqueries where a CTE would be clearer
-- ❌ Implicit NULL handling (always use COALESCE)
-- ❌ Undescriptive column aliases (`a`, `x`, `col1`)
-- ❌ Mixing case in keywords (`Select`, `select`, `SELECT`)

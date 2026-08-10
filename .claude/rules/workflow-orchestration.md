@@ -49,15 +49,8 @@ since that is where unseen methodology footguns are most expensive.
 
 ## 2. Use Agent Teams for Complex Work
 
-Match the task to the right agent:
-- Architecture decisions → `planner`
-- Python code review → `python-reviewer`
-- General code review → `code-reviewer`
-- Frontend/site work → `web-developer`
-- Portfolio writing → `content-writer`
-- Data pipelines → `data-pipeline`
-
-Agents can be chained: plan → build → review → document.
+Each agent's description carries its own routing, and `CLAUDE.md` holds the index. The part
+no description states: agents chain — plan → build → review → document.
 
 ---
 
@@ -129,3 +122,29 @@ After completing a significant task:
 - Note anything that went wrong and how it was resolved
 - If a pattern emerged that would be useful again, propose a skill or rule for it
 - Update `FUTURE-IDEAS.md` if a bigger idea surfaced during the work
+
+---
+
+## 11. Keep vs. Cage
+
+The keep-vs-cage test, for anything in this harness — a rule, a skill step, a checklist:
+**if the model were twice as capable, would this help it use that capability (KEEP) or
+block it (CAGE)?**
+
+- **KEEP** — deterministic verifiers, human approval gates, un-derivable facts (voice,
+  project scope, business rules, schema constraints, tool wiring), thin goal statements.
+- **CAGE** — prescribed reasoning procedures, routing that restates what a description
+  already says, model-weakness patches, checklists repeating what a capable model does.
+
+Numbers in a list are load-bearing when they encode a data dependency, a safety sequence, a
+human gate, or an output contract. They are a cage only when they encode a judgment order
+the model should own.
+
+Two corollaries worth stating, both learned the expensive way:
+
+- **Same text in two load contexts is not duplication.** Before cutting something as
+  redundant, check *where each copy actually loads* — a rule file and an agent file reach
+  different sessions.
+- **Mark weakness-patches with an expiry.** If an instruction exists because the current
+  model over- or under-produces something, say so in the text, so a later session knows to
+  re-test it rather than inherit it.

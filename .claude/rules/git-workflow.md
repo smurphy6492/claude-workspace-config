@@ -65,12 +65,18 @@ Rules:
 
 ## Pull Request Workflow
 
-Use the `gh` CLI for all GitHub operations.
+**Tool split** — these are capability boundaries, not preferences:
 
-### Create a PR
-```bash
-gh pr create --title "feat(website): add live GitHub stats" --body "..."
-```
+| Use | For |
+|---|---|
+| `github` MCP | PRs, issues, file contents, branches, commits, search |
+| `gh` CLI | Actions runs, secrets, releases, repo settings and visibility, branch protection — the MCP has no tools for these |
+| `git` | Local work: stage, commit, checkout, push |
+
+`gh` is not always on the bash PATH — on Windows it often needs its full path — which is a
+further reason to reach for the MCP where both would work.
+
+Full command reference and PR templates: `/github-workflow`.
 
 ### PR Body Template
 ```markdown
@@ -105,13 +111,3 @@ gh pr create --title "feat(website): add live GitHub stats" --body "..."
 
 ---
 
-## GitHub CLI Quick Reference
-```bash
-gh repo view                    # view repo info
-gh pr list                      # list open PRs
-gh pr create                    # create new PR
-gh pr merge <number>            # merge a PR
-gh run list                     # list Actions runs
-gh run view <id>                # view a specific run
-gh secret set <name>            # set a repo secret
-```

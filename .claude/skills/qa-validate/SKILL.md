@@ -1,6 +1,6 @@
 ---
 name: qa-validate
-description: End-to-end QA and functional validation for everything in this workspace. Validates that features actually work — builds succeed, pipelines run, outputs are correct, and the site renders. Use after completing a feature and before marking a session done or demoing. Distinct from verification-loop (which checks code quality). This checks functional correctness.
+description: End-to-end functional QA — builds succeed, pipelines run, outputs are correct, the site renders. Use after completing a feature and before demoing or calling a session done. Checks that things work; /verification-loop checks code quality.
 argument-hint: "website | analytics-agent | full | <specific feature>"
 allowed-tools: Bash, Read, Glob, Grep
 metadata:

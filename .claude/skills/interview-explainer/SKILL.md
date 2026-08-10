@@ -1,6 +1,6 @@
 ---
 name: interview-explainer
-description: Generate a first-principles HTML walkthrough of a finished project or a specific technique within it — the motivation, the math, the actual code, and how it was used — plus an interview Q&A layer, so you can explain it in depth and genuinely understand it. Grounded in the real implementation, not a textbook version. Use when prepping to defend a project or a method in a technical interview.
+description: First-principles HTML walkthrough of a finished project or technique — motivation, math, real code, and an interview Q&A layer, grounded in the actual implementation rather than a textbook version. Use when prepping to defend a project or method in a technical interview.
 argument-hint: "<project> [technique or concept to focus on] [--md]"
 allowed-tools: Read, Glob, Grep, Write, Edit, Bash, WebSearch, WebFetch
 metadata:

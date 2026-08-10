@@ -1,6 +1,6 @@
 ---
 name: project-review
-description: Review a finished data/analytics project as a staff/senior DS hiring manager would — code, business logic, narrative, and website copy together. Spawns the staff-ds-reviewer agent (fresh context, fixed rubric), triages findings by severity, fixes the critical ones with your approval, re-reviews to confirm they closed, and parks medium/low findings in a backlog for future iteration. Use when a project is nominally done and you need to know whether it survives an interview and production.
+description: Hiring-manager review of a finished data/analytics project — code, business logic, narrative, and site copy together, findings triaged by severity. Use when a project is nominally done and you need to know whether it survives an interview and production.
 argument-hint: "<project path or name> [fix-criticals (default) | critique-only]"
 allowed-tools: Agent, Read, Write, Edit, Glob, Grep, Bash
 metadata:

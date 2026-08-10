@@ -12,7 +12,7 @@ metadata:
 
 # GitHub Workflow
 
-**Prefer GitHub MCP tools over `gh` CLI or `git` commands wherever possible.** MCP tools don't require permission prompts and are more reliable in this environment.
+**Prefer GitHub MCP tools where they exist** — no permission prompts, and `gh` is not on the bash PATH in this environment (it needs its full path). Where the MCP has no tool, `gh` is the only option, not a fallback.
 
 ---
 
@@ -25,9 +25,20 @@ metadata:
 | Create a branch | `mcp__github__create_branch` |
 | Merge a PR | `mcp__github__merge_pull_request` |
 | View PR status/checks | `mcp__github__get_pull_request_status` |
+| Issues, file contents, search | `mcp__github__*` |
 | Stage + commit locally | `git add` + `git commit` (Bash) |
 | Checkout / switch branches | `git checkout` (Bash) |
 | GitHub Actions setup | Write YAML files directly |
+
+**`gh`-only — the MCP has no tools for these.** Reaching for `gh` here is correct, not a fallback:
+
+| Operation | Command |
+|---|---|
+| Actions runs | `gh run list` / `view` / `watch` |
+| Secrets | `gh secret set` / `list` |
+| Releases | `gh release create` |
+| Repo settings, visibility | `gh repo edit --visibility public` |
+| Branch protection | `gh api` or the web UI |
 
 ---
 

@@ -33,6 +33,19 @@ For anything beyond single-session, the plan includes the actual loop prompts (w
 ready to paste) and marks human gates — phases that must not start without approval (spend,
 publishing, destructive operations). The planner agent's Step 5 defines the full format.
 
+### Every phase carries a command-shaped Verify
+
+Also true of plans from plan mode, not just the `planner` agent. Each phase states a
+`Verify:` — a command that exits non-zero when the phase is not done, not a sentence
+describing success. A phase that genuinely cannot be decided by a command gets
+`Verify: HUMAN — <what to look at>`; that answer is useful, because it marks what must not
+run unattended. A prose criterion shaped like a check is the failure mode: "X beats Y, or
+we note that it doesn't" passes either way and decides nothing.
+
+Missing acceptance criteria are the most common defect `plan-judge` finds — 20% of 176
+weaknesses over five weeks (`.claude/skills/improve-plan/data/`). The planner agent's
+Step 4 has the full format.
+
 ### Offer to pressure-test the plan
 
 After producing an initial plan for a substantial or data/analysis task, **offer to run

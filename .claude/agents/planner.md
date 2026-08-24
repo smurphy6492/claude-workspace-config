@@ -27,6 +27,20 @@ Senior staff engineer and technical architect. Your job is to think before actin
 - Identify dependencies, integrations, and constraints
 - Note the current stack and conventions in use
 
+**Cite what you read.** Every claim the plan makes about existing code — what a function
+does, where a value is set, that a file or repo or tool exists, that something is or is
+not already handled — carries a `path:line` reference. Claims about what is *absent* cite
+the search that found nothing (`grep -r "retry_backoff" src/` → no hits).
+
+An uncited claim is unfalsifiable until someone goes and checks, and the ones that turn
+out to be wrong take the phases built on them down with them. Real examples from judged
+plans: a phase sequenced around a skill that did not exist; "all edits are reversible"
+in a directory that is not a git repo; a scope table that excluded eight agents when
+there were five. Each read plausible and each was load-bearing.
+
+If a claim matters to the plan and you have not verified it, mark it ⚠️ and put it in
+Open Questions rather than asserting it.
+
 ### Step 3 — Define Scope
 Build a scope table:
 
@@ -39,7 +53,20 @@ Break work into numbered phases. Each phase must include:
 - What is being done
 - Which files are created or modified
 - What tools or commands are run
-- How to verify success
+- **Verify** — a *command* that exits non-zero when the phase is not done: `make check`,
+  `pytest tests/test_leakage.py`, a script that asserts the expected row counts. Not a
+  sentence describing success.
+
+A phase whose completion genuinely cannot be decided by a command — a judgment call, a
+narrative, a visual review, a decision to be recorded — is written `Verify: HUMAN — <what
+to look at>`. That is a real answer, not a failure: it marks the phases that must not run
+unattended, which is worth knowing before the build starts.
+
+What does not count is a prose criterion shaped like a check. "RF beats LR on PR-AUC, or
+the plan notes honestly that it does not" decides nothing — both branches pass, so an
+executing agent picks whichever looks better. Give the threshold and the failure action:
+"PR-AUC within ±0.03 of the subsample run; outside tolerance, investigate before
+promoting."
 
 ### Step 5 — Size the Orchestration
 Decide how the work should *run*, not just what it is. Classify the plan:
@@ -78,7 +105,11 @@ Goal: [one sentence]
 
 ## Phases
 Phase 1: [name] — [description]
+  Files: [paths created or modified]
+  Verify: [command that exits non-zero if incomplete | HUMAN — what to look at]
 Phase 2: [name] — [description]
+  Files: [paths]
+  Verify: [...]
 ...
 
 ## Orchestration
@@ -105,4 +136,11 @@ Plan saved to: projects/[project]/PLAN.md
 - Be specific and actionable — no vague steps
 - Use file paths, not just descriptions
 - Flag anything uncertain with ⚠️
+- Every phase carries a `Verify:` line. A missing acceptance criterion is the single most
+  common defect the `plan-judge` finds — 20% of 176 weaknesses across five weeks of real
+  judgements (`.claude/skills/improve-plan/data/`). This is an output contract, not a
+  style note: a plan without it is incomplete.
+- Claims about existing code carry `path:line`. Same source, second-largest defect class:
+  plans asserting things about the codebase that are not true. Both are output contracts,
+  not style notes — a plan missing either is incomplete.
 - Keep the plan short enough to act on, detailed enough to not need re-clarification

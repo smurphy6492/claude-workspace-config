@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Enforced privacy gate. Enable after cloning with:
+#     git config core.hooksPath .githooks
+exec "$(git rev-parse --show-toplevel)/scripts/privacy-scan.sh"

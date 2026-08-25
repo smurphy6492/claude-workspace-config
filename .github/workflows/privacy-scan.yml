@@ -1,0 +1,21 @@
+name: privacy-scan
+
+# A pre-commit hook only protects the machine that has it installed, and is bypassable
+# with --no-verify. This runs the same script on every PR, where it cannot be skipped.
+
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Scan the PR diff for private content
+        run: |
+          base="origin/${{ github.base_ref }}"
+          git fetch -q origin "${{ github.base_ref }}"
+          bash scripts/privacy-scan.sh "$base...HEAD"

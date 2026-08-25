@@ -152,3 +152,19 @@ The portfolio at [smurphy.netlify.app](https://smurphy.netlify.app) was built en
 ## License
 
 [MIT](LICENSE) — use it, fork it, adapt it.
+
+## Privacy scan
+
+This repo is public and mirrors a private workspace, so every change is scanned for content
+that should not be published — private project names, absolute paths carrying a username,
+email addresses, credentials.
+
+`scripts/privacy-scan.sh` holds the patterns and is the single source of truth. It runs in
+two places:
+
+- **Pre-commit**, via `.githooks/pre-commit`. Arm it once after cloning:
+  `git config core.hooksPath .githooks`
+- **CI**, via `.github/workflows/privacy-scan.yml`, on every PR — where `--no-verify`
+  cannot reach.
+
+Only added lines are scanned; removing a flagged line is the fix, not a violation.

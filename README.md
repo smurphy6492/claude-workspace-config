@@ -2,7 +2,7 @@
 
 How I orchestrate Claude Code as a multi-agent development team.
 
-This repo contains the full workspace configuration I use daily with [Claude Code](https://docs.anthropic.com/en/docs/claude-code) — specialized agents, reusable skills (slash commands), coding standards (rules), and the CLAUDE.md file that ties it all together. Every project on [my portfolio site](https://smurphy.netlify.app) was built using this system.
+This repo contains the full workspace configuration I use daily with [Claude Code](https://docs.anthropic.com/en/docs/claude-code) — specialized agents, reusable skills (slash commands), coding standards (rules), and the CLAUDE.md file that ties it all together. Every project on [my portfolio site](https://seanmurphy.app) was built using this system.
 
 ---
 
@@ -145,7 +145,7 @@ Then either use this directory as your Claude Code workspace, or copy the `.clau
 
 ## See It In Action
 
-The portfolio at [smurphy.netlify.app](https://smurphy.netlify.app) was built entirely using this workspace config. The commit history on every project repo shows the agentic workflow in practice — planning, building, reviewing, and documenting through specialized agents.
+The portfolio at [seanmurphy.app](https://seanmurphy.app) was built entirely using this workspace config. The commit history on every project repo shows the agentic workflow in practice — planning, building, reviewing, and documenting through specialized agents.
 
 ---
 

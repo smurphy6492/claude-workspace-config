@@ -76,8 +76,6 @@ Rules:
 `gh` is not always on the bash PATH — on Windows it often needs its full path — which is a
 further reason to reach for the MCP where both would work.
 
-Full command reference and PR templates: `/github-workflow`.
-
 ### PR Body Template
 ```markdown
 ## What

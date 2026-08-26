@@ -82,8 +82,12 @@ If the site has a data file (JSON, JS array, etc.) that drives the project grid,
 git checkout -b feature/add-<project-name>
 git add <changed files>
 git commit -m "feat(portfolio): add <project-name> case study"
-gh pr create --title "feat(portfolio): add <project-name>" --body "..."
+git push -u origin feature/add-<project-name>
 ```
+
+Open the PR with `mcp__github__create_pull_request` (base `master`), not `gh` — PR
+creation is MCP territory under the capability split in `.claude/rules/git-workflow.md`.
+Use the PR body template from that rule.
 
 ---
 

@@ -14,6 +14,8 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Check the patterns still detect what they should
+        run: bash scripts/test-privacy-scan.sh
       - name: Scan the PR diff for private content
         run: |
           base="origin/${{ github.base_ref }}"

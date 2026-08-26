@@ -14,7 +14,7 @@ metadata:
 
 Deploy the enforcement layer from `.claude/rules/mechanical-gates.md` into a target repo.
 This skill writes files that make checks run automatically.
-It does not run the checks itself (use `/verification-loop` for that).
+It does not run the checks itself — that is the repo's own check command (usually `make check`).
 
 ---
 
@@ -238,4 +238,3 @@ Next: Push to GitHub and verify Actions run on PR.
 ## Related
 
 - `.claude/rules/mechanical-gates.md` - The standard this skill implements
-- `/verification-loop` - Run checks manually (this skill makes them run automatically)

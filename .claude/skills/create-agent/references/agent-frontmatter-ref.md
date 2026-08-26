@@ -85,7 +85,7 @@ tools: Read, Write, Edit, Bash, Glob, Grep, WebSearch, WebFetch
 model: sonnet
 memory: project
 skills:
-  - python-patterns
+  - bootstrap-python-project
   - systematic-debugging
 maxTurns: 30
 permissionMode: acceptEdits

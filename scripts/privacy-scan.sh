@@ -18,8 +18,9 @@ KNOWN='geo-lift|IBKR|vanguard|robinhood|layoff|laid off|job.search|investment.?t
 # This is what catches leaks nobody thought to enumerate.
 STRUCTURAL='Sean Murphy|smurphy|[A-Za-z]:.Users|/home/[a-z]|/Users/[a-z]|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}|api[_-]?key|secret|token|password|ghp_|\bsk-[A-Za-z0-9_-]{8,}'
 
-# This script and its workflow quote the patterns literally, so scanning them always hits.
-EXCLUDE=(':(exclude)scripts/privacy-scan.sh' ':(exclude).github/workflows/privacy-scan.yml')
+# These files quote the patterns, or fixtures shaped like them, so scanning them always
+# hits. Their contents are synthetic by construction — keep it that way.
+EXCLUDE=(':(exclude)scripts/privacy-scan.sh' ':(exclude)scripts/test-privacy-scan.sh' ':(exclude).github/workflows/privacy-scan.yml')
 
 if [ $# -gt 0 ]; then
   DIFF=$(git diff "$1" -- . "${EXCLUDE[@]}")

@@ -40,7 +40,7 @@ Before writing anything:
 
 ## Step 3 — Generate Case Study Content
 
-Using the `content-writer` agent tone and structure:
+Following the workspace writing-style rule (`.claude/rules/writing-style.md`):
 
 ### Project Card (for grid/list on homepage)
 ```

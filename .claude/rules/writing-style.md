@@ -13,7 +13,7 @@ Standards for all written content: case studies, READMEs, project descriptions, 
 
 ## Voice & Tone
 
-- **Direct** — lead with what matters. No throat-clearing preambles.
+- **Direct** — lead with what matters. No throat-clearing preambles: "Here's the thing", "Let me be clear", "The truth is", "It's worth noting". Start one sentence later.
 - **Specific** — name tools, decisions, numbers. Vague claims are worse than none.
 - **Confident but honest** — state what was built and what it does. Acknowledge limitations without hedging everything.
 - **Human** — first person where natural. Not corporate passive voice.
@@ -28,9 +28,13 @@ The goal: copy here must not read as AI-generated, because that costs credibilit
 Avoid the generic-LLM tells:
 
 - **Inflated diction where a plain word is exact.** Prefer "use" over "leverage/utilize", "important" over "pivotal/crucial", "show" over "showcase", "strong" over "robust", "includes" over "encompasses". A domain term is never banned: "leverage" is correct in finance, "robust" in "robust standard errors", "landscape" in ordinary prose. Use the precise word; only swap out the inflated one where a plainer word says the same thing.
-- **"Not just X, but Y" / "Not only X, but also Y".** The single most recognizable tell. Rewrite as a direct statement. Bad: "This isn't just a config repo, it's a showcase of orchestration." Good: "This repo shows how I orchestrate Claude Code as a multi-agent team."
+- **"Not just X, but Y" / "Not only X, but also Y", and the negate-then-correct pair ("That's not compliance. That's stalling.").** The single most recognizable tell. Rewrite as a direct statement. Bad: "This isn't just a config repo, it's a showcase of orchestration." Good: "This repo shows how I orchestrate Claude Code as a multi-agent team."
 - **Reflexive rule of three.** AI defaults to three parallel items. Vary list length; two or four is fine.
+- **Sentence-fragment pairs.** Two clipped fragments stuck together for rhythm: "Fast. Simple." / "No fluff. Just answers." Write one real sentence instead.
+- **Fake precision ranges.** "5 to 10 minutes", "a 20-30% lift". A range where a measurement exists says you never ran it. Give the number you actually have, or say you did not measure it.
 - **Significance-claiming "-ing" tails.** Don't append vague import to a sentence. Bad: "…uses typed contracts, ensuring reliability across the pipeline." Good: "…uses typed contracts. Without them, hallucinated field names silently break pipelines."
+- **Self-applause asides.** Standalone sentences that clap for the point just made: "And that matters." "That's the part everyone misses." "Which is exactly the point." Delete them; the sentence before survives intact.
+- **Summary endings.** "In short...", "At the end of the day...", a closing paragraph that restates the piece. Stop at the last real point.
 - **"Despite X, Y" challenge-then-optimism endings**, and telling the reader something is important, significant, or transformative instead of showing what it does and letting them judge.
 - **Vague attributions** to unnamed experts, observers, or reports. Cite specifically or state it as your own view.
 - **Elegant variation.** If you said "agents" last sentence, say "agents" again. Don't cycle through "personas", "specialized workers", "autonomous entities".

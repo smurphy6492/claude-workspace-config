@@ -81,7 +81,7 @@ Decide how the work should *run*, not just what it is. Classify the plan:
 Most plans are single-session — say so in one line and move on. Never manufacture orchestration for small work.
 
 When the work is bigger than a single session:
-- Assign each phase to a workspace agent (`web-developer`, `data-pipeline`, `content-writer`, etc.) and name the files/context it must read before starting
+- Assign each phase to a workspace agent (`web-developer`, `data-pipeline`, `python-reviewer`, etc.) and name the files/context it must read before starting
 - Write the plan to `projects/<project>/PLAN.md` so future sessions and agents resume from it without re-deriving anything; state per phase what "done" state it leaves behind for the next phase to pick up
 - Write ready-to-paste loop prompts for the phases that need them:
   - goal-sized loops (a self-paced `/loop` with no interval) must have deterministic completion criteria (tests pass, lint clean, score threshold) and an explicit turn cap: `/loop all tests pass and mypy is clean, stop after 5 tries`

@@ -53,4 +53,3 @@ except httpx.TimeoutException:
 ## Testing
 
 Tests live in `tests/` mirroring `src/`, named `test_<module>.py`, following Arrange-Act-Assert.
-See the `/python-testing` skill for the full guide.

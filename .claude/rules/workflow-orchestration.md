@@ -72,17 +72,16 @@ no description states: agents chain — plan → build → review → document.
 When a task reveals a gap in the workspace (missing skill, outdated rule, missing agent):
 1. Complete the current task first
 2. Then propose the workspace improvement
-3. Use `/create` to scaffold the new tooling
+3. Use `/create-agent`, `/create-rule`, or `/create-skill` to scaffold the new tooling
 
 ---
 
 ## 4. Verify Before Committing
 
-Run `/verification-loop` before committing significant changes:
-- Lint passes
-- Type checks pass
-- Tests pass
-- No secrets in diff
+Lint, type-check, and tests are enforced mechanically by CI and pre-commit
+(`.claude/rules/mechanical-gates.md`) — not by an invoked checklist. Before committing,
+run the repo's own check command (usually `make check`) and confirm the diff carries no
+credentials or machine-specific paths.
 
 ---
 
@@ -161,3 +160,20 @@ Two corollaries worth stating, both learned the expensive way:
 - **Mark weakness-patches with an expiry.** If an instruction exists because the current
   model over- or under-produces something, say so in the text, so a later session knows to
   re-test it rather than inherit it.
+
+---
+
+## 12. Ask Before Assuming
+
+When a request could reasonably mean two different things, and the two readings lead to
+different work, use `AskUserQuestion` before starting.
+Sean would rather answer two questions up front than review the wrong deliverable.
+
+Ask when the answer changes what gets built.
+Don't ask when it changes a variable name, a file location, or anything a careful reader
+could settle from the repo.
+Routine judgment calls stay yours.
+
+> Added 2026-08-25 as an experiment, to test whether an explicit nudge scopes work better
+> than the model's own default. Re-evaluate after a few weeks of real sessions: if the
+> questions turn out to be ones the repo already answered, cut this section.

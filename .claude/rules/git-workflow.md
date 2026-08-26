@@ -95,11 +95,9 @@ Full command reference and PR templates: `/github-workflow`.
 ```
 
 ### Before Pushing
-- [ ] Code runs without errors
-- [ ] No secrets, API keys, or credentials in the diff
-- [ ] Lint and type checks pass
-- [ ] New functionality has at least basic tests
-- [ ] README or docs updated if behavior changed
+Lint, type-check, and tests are enforced by CI and pre-commit
+(`.claude/rules/mechanical-gates.md`) — don't re-run them as a checklist.
+The one thing no gate checks: update the README or docs if behavior changed.
 
 ---
 

@@ -13,6 +13,22 @@ A plan can be well-structured and still be wrong. Dimensions 1–3 carry most of
 because a complete, specific, nicely-sequenced plan that proposes a leaky backtest or an
 unfair benchmark is worse than useless — it looks trustworthy and isn't.
 
+## Severity tags
+
+Tag every weakness `[BLOCKER]`, `[MAJOR]`, or `[MINOR]`:
+
+- **BLOCKER** — executing the plan as written would produce a plausible-but-wrong result,
+  corrupt or destroy data, or rest on a Verify that passes on the exact failure it exists
+  to catch. The plan must not execute until this is fixed.
+- **MAJOR** — an implementer would hit ambiguity, a missing piece, or an unmitigated real
+  risk mid-build and have to stop and ask. Fix before execution unless deliberately
+  accepted with a stated reason.
+- **MINOR** — polish; would not change what gets built.
+
+Severity, not the total score, is what the improvement loop steers by: the loop stops when
+no BLOCKER remains. Tag honestly — inflating a MINOR forces a wasted cycle; deflating a
+BLOCKER ships a landmine.
+
 ---
 
 ## 1. Correctness & feasibility — 20 points

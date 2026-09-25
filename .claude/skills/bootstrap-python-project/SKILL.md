@@ -25,7 +25,8 @@ Two modes: `new` (scaffold from scratch) or `harden` (add missing tooling to exi
 │   └── <project_name>/
 │       └── __init__.py
 ├── tests/
-│   └── __init__.py
+│   ├── __init__.py
+│   └── test_smoke.py
 ├── pyproject.toml
 ├── Makefile
 ├── .pre-commit-config.yaml
@@ -48,9 +49,8 @@ dependencies = []
 
 [project.optional-dependencies]
 dev = [
-    # Keep this floor's major.minor aligned with the ruff-pre-commit `rev` in
-    # .pre-commit-config.yaml, or `make check` (this ruff) and the pre-commit hook
-    # (pinned ruff) will disagree on import sorting and fight each other.
+    # These are the ONLY tool versions in the project: the pre-commit hooks run
+    # the installed ruff/mypy (language: system), so there is no hook rev to drift.
     "ruff>=0.15",
     "mypy>=1.10",
     "pytest>=8.0",
@@ -80,14 +80,18 @@ addopts = "--cov=src --cov-report=term-missing"
 
 ### Step 3 — Makefile
 ```makefile
-.PHONY: install lint type-check test check clean
+.PHONY: install format lint type-check test check clean
 
 install:
 	pip install -e ".[dev]"
 	pre-commit install
 
-lint:
+# `check` must never modify files, or CI and local runs disagree. Fixing lives here.
+format:
 	ruff check . --fix && ruff format .
+
+lint:
+	ruff check . && ruff format --check .
 
 type-check:
 	mypy src/
@@ -110,25 +114,50 @@ repos:
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
-  # Keep this rev's major.minor in sync with the `ruff` floor in pyproject dev deps
-  # (bump both together). A stale pin here sorts imports differently than the ruff
-  # `make check` installs, and the two gate layers fight (I001 loops on every run).
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.22
+  # ruff and mypy run from the project's own environment, not pinned hook repos.
+  # Pinned revs (ruff-pre-commit, mirrors-mypy) drifted from what `make check`
+  # installs three separate times; version mismatch made the two gate layers fight
+  # (I001 import-sort loops, contradictory mypy errors). One version source: pyproject.
+  - repo: local
     hooks:
-      - id: ruff
-        args: [--fix]
+      - id: ruff-check
+        name: ruff check
+        entry: ruff check --fix
+        language: system
+        types: [python]
       - id: ruff-format
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.10.0
-    hooks:
+        name: ruff format
+        entry: ruff format
+        language: system
+        types: [python]
+      # Same scope as `make type-check` (src/ only). A per-file mypy hook would also
+      # type-check tests/, silently widening enforcement past what CI checks.
       - id: mypy
-        additional_dependencies: []
+        name: mypy (src)
+        entry: mypy src/
+        language: system
+        pass_filenames: false
+        files: ^src/
 ```
+
+The hooks need the dev tools installed, so run `make install` (inside the project's venv)
+before the first commit. That is also what arms the hook.
 
 For markdown and SQL linting on top of this base, run `/add-gates` — it deploys the
 `markdownlint` + straight-quotes + `sqlfluff` hooks and their configs (kept out of the Python
 scaffold so pure-Python repos don't pull in a Node/SQL toolchain they don't need).
+
+### Step 4b — tests/test_smoke.py
+pytest exits 5 when it collects no tests, which fails `make check` on a brand-new project.
+Ship one real test so the gate starts green:
+
+```python
+import <project_name>
+
+
+def test_package_imports() -> None:
+    assert <project_name>.__name__ == "<project_name>"
+```
 
 ### Step 5 — .gitignore
 ```
@@ -141,6 +170,7 @@ dist/
 .ruff_cache/
 .pytest_cache/
 htmlcov/
+.coverage
 *.egg-info/
 ```
 
@@ -172,6 +202,10 @@ Only add what is not present. Don't overwrite existing config.
 - `setup.py` → `pyproject.toml`: extract name, version, dependencies
 - `black` + `isort` → `ruff`: ruff handles both; remove black/isort from pre-commit and deps
 - `flake8` → `ruff`: ruff is a superset; remove flake8
+- Pinned `ruff-pre-commit` / `mirrors-mypy` hooks → the `repo: local` hooks above. Check the
+  pinned revs against the installed versions first and say which drifted. Arming mypy on a repo
+  that ran unarmed can surface real errors; scope it to `src/` like `make type-check` rather
+  than silently widening it to `tests/`.
 
 ---
 

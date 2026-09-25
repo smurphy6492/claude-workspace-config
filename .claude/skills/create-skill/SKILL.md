@@ -84,6 +84,14 @@ Write `.claude/skills/<name>/FEEDBACK.md`:
 |---|---|---|---|
 ```
 
+### Examples use placeholders, never real data
+
+Skills in this workspace are synced to a public mirror (`/sync-config`). Examples, argument
+hints and sample inputs therefore use made-up companies, people and numbers (Acme, Dana, $120K).
+Never use real names or details from memory, `projects/`, or the conversation: live interview
+companies, interviewers, offer terms, holdings, private project names. Before confirming,
+reread the generated files for anything real and replace it.
+
 ---
 
 ## Step 4 — Confirm

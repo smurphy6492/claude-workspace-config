@@ -58,6 +58,25 @@ loop would be overkill. The judgment of "is this plan substantial enough to be w
 pressure-testing" is yours to make — when in doubt on a data/analysis plan, offer it,
 since that is where unseen methodology footguns are most expensive.
 
+### Publish a review artifact as the final step
+
+Sean reads the chat summary, not the PLAN.md. So once a substantial plan is final (after
+`/improve-plan`, if it ran), publish it as an Artifact built for approving the plan, and
+link it in the reply. Skip this for the same trivial plans that skip `/improve-plan`.
+
+The page is a summary to review, not a copy of the plan. It should make these easy to
+see and question: the goal, what is out of scope, the phases and their order (a diagram
+when there is a real sequence or dependency to show), each phase's Verify, the human
+gates, and the risks and open questions Sean has to answer. Lead with what he is
+approving.
+
+PLAN.md stays the source of truth, because agents and later sessions resume from files,
+not artifacts. Add the artifact URL near the top of PLAN.md so the two stay linked. If
+Sean comments on the page, change PLAN.md first, then republish to the same URL.
+
+> Added 2026-09-25 as an experiment. Re-evaluate after a few plans: if Sean doesn't open
+> or comment on the pages, cut this section.
+
 ---
 
 ## 2. Use Agent Teams for Complex Work

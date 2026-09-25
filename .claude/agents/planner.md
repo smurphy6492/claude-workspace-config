@@ -55,7 +55,10 @@ Break work into numbered phases. Each phase must include:
 - What tools or commands are run
 - **Verify** — a *command* that exits non-zero when the phase is not done: `make check`,
   `pytest tests/test_leakage.py`, a script that asserts the expected row counts. Not a
-  sentence describing success.
+  sentence describing success. When the Verify is a test, name where its expected values
+  come from (a hand calculation, a spec, a known-answer fixture), and prefer one end-to-end
+  test on a fixture over many unit tests. A test that only restates the code passes
+  whether the phase is done or not. See `.claude/rules/testing-standards.md`.
 
 A phase whose completion genuinely cannot be decided by a command — a judgment call, a
 narrative, a visual review, a decision to be recorded — is written `Verify: HUMAN — <what

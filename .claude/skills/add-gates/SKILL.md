@@ -71,6 +71,11 @@ Identify:
 - The check command (usually `make check`)
 - Python version (from pyproject.toml `requires-python` or default to 3.11)
 - Whether pre-commit is already configured
+- Whether any tests exist (pytest exits 5 on zero tests, so `make check` cannot pass without one)
+- Whether the pre-commit config pins ruff or mypy through `ruff-pre-commit` / `mirrors-mypy`
+  revs. Compare each rev to the version the dev deps install; a mismatch makes the hook and
+  `make check` disagree. Report any drift, and point to the `repo: local` hooks in
+  `/bootstrap-python-project` as the fix.
 
 ### Step 2: Generate GitHub Actions Workflow
 
@@ -207,13 +212,22 @@ If `.pre-commit-config.yaml` exists:
 If `.pre-commit-config.yaml` does not exist, skip this step.
 Do not create a pre-commit config from scratch (that is a separate task).
 
-### Step 4: Verify
+### Step 4: Verify the gates pass
 
-After writing artifacts:
+A gate that is red on its first run gets switched off. So this skill is not done until
+`make check` and `pre-commit run --all-files` both exit 0, or the summary says plainly why they
+don't.
 
 1. Confirm `.github/workflows/ci.yml` exists and is valid YAML
 2. If pre-commit was wired, confirm `.git/hooks/pre-commit` exists
-3. Report what was created
+3. Run `make check`. If it fails **only** because pytest collected no tests, add
+   `tests/test_smoke.py` with one test that imports the package, and say so in the summary.
+   That is the one piece of check logic this skill writes. Any other failure is a real
+   finding: report it and do not change source to make it pass.
+4. Run `pre-commit run --all-files`. If the new markdown or SQL linters flag files that already
+   existed, list them with the fix command (`sqlfluff fix <file>`, `markdownlint-cli2 --fix`).
+   Don't reformat files the user didn't ask you to change.
+5. Report what was created and the final exit status of both commands
 
 ---
 
@@ -227,8 +241,10 @@ After writing artifacts:
 | CI workflow | Created | .github/workflows/ci.yml |
 | Pre-commit | Wired | Hooks installed |
 
-Check command: make check
+Check command: make check (exit 0 | fails: <reason>)
+pre-commit run --all-files: exit 0 | fails: <files and fix command>
 Python version: 3.11
+Pin drift: none | <hook rev vs installed version>
 
 Next: Push to GitHub and verify Actions run on PR.
 ```

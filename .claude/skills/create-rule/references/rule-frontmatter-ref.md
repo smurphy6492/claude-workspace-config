@@ -74,3 +74,4 @@ paths:
 | `git-workflow.md` | All files | GitHub conventions, commits, PRs |
 | `sql-style.md` | `**/*.sql` | SQL formatting and naming |
 | `python-style.md` | `**/*.py` | Python conventions |
+| `testing-standards.md` | All files | Which tests are worth writing: expected values from outside the code, E2E over unit |

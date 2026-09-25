@@ -2,7 +2,7 @@
 name: improve-plan
 description: Run a draft implementation plan through one independent judge-and-revise pass before acting on it. Spawns the plan-judge agent (fresh context, fixed rubric), then revises the plan from its weaknesses. Use after the planner produces a plan, or on any plan about to be executed.
 argument-hint: "once (default) | loop | judge-only"
-allowed-tools: Agent, Read, Write, Edit, Glob, Grep
+allowed-tools: Agent, SendMessage, Read, Write, Edit, Glob, Grep
 metadata:
   version: "1.0"
   tier: guided-workflow
@@ -31,7 +31,7 @@ and revisit this default once the logged data is thicker.
 | Mode | What it does |
 |---|---|
 | `once` (default) | One judge → revise pass. The right call for almost everything. |
-| `loop` | Repeat judge → revise until the judge returns no substantive new weakness, the score is ≥ 90, or 3 cycles run — whichever comes first. |
+| `loop` | Repeat judge → revise until a pass returns no `[BLOCKER]` weakness, or 3 cycles run — whichever comes first. |
 | `judge-only` | Score and critique the plan, present the result, do not revise. |
 
 Every mode logs each judge pass (Step 1b) — there is no separate measure mode.
@@ -52,10 +52,21 @@ from nothing.
 ### Step 1 — Judge (independent)
 Spawn the `plan-judge` agent. Pass it the task and the full plan text. It reads
 `.claude/skills/improve-plan/rubric.md` and returns a `SCORE`, per-dimension scores, a
-numbered `WEAKNESSES` list, and a one-line `VERDICT`.
+numbered severity-tagged `WEAKNESSES` list, and a one-line `VERDICT`.
 
 Always use a fresh `plan-judge` agent for each cycle — do not reuse one across cycles, and
 do not let the agent that wrote the plan grade it. The independence is the point.
+
+### Step 1a — Closure audit (iteration ≥ 2 only)
+When a prior pass exists on this `plan_id` (this session or in `runs/`), then **after** the
+judge returns its cold read, send that same judge a follow-up via `SendMessage` containing
+the previous pass's `WEAKNESSES` list verbatim, and ask for its `CLOSURE AUDIT` (format in
+the agent file: each prior weakness classified closed / open / regressed, plus a closure
+rate).
+
+Sequencing is the contract: the prior list goes in the follow-up, never in the initial
+prompt — included up front it anchors the cold read and the independence is lost. The
+closure audit is what answers "did the revision work"; the score cannot (see Step 3).
 
 ### Step 1b — Log the judgement (always, every pass)
 Immediately after each judge returns, write one record to
@@ -74,7 +85,8 @@ skill also runs from project subdirectories, where a relative path would miss. C
   "correctness": 15, "methodology": 18, "completeness": 16,
   "specificity": 13, "risk": 9, "sequencing": 7,
   "verdict": "<the judge's one-line VERDICT, verbatim>",
-  "weaknesses": ["<each WEAKNESSES item, verbatim, first ~2 sentences>"],
+  "weaknesses": ["<each WEAKNESSES item, verbatim including its [SEVERITY] tag, first ~2 sentences>"],
+  "closure": {"closed": [1, 2, 5], "open": [3], "regressed": [4]},
   "plan_label": "<the description you gave the plan-judge agent>",
   "plan_source": "planner | plan-mode | hand-written | external",
   "mode": "once"
@@ -96,6 +108,9 @@ skill also runs from project subdirectories, where a relative path would miss. C
   the weakness text says **what keeps going wrong**, which is what actually changes the
   rubric, the `planner` agent, or the plan template. Record them verbatim — do not
   summarize or re-word, or the recurrence signal is lost.
+- `closure` records the Step 1a audit. The integers index the **previous** pass's
+  `weaknesses` array (1-based, matching the judge's numbering). Omit the field entirely on
+  iteration 1. Records before 2026-08-27 predate both this field and the severity tags.
 
 This costs one `Write` per pass and is what turns routine use into a dataset. See
 `.claude/skills/improve-plan/data/README.md` for why it exists and how it is analyzed.
@@ -110,10 +125,20 @@ In `judge-only` mode, skip this step.
 
 ### Step 3 — Decide whether to continue
 - `once`: stop after one revise.
-- `loop`: judge the revised plan with a fresh `plan-judge`. Continue if the new score
-  improved and the latest weaknesses are substantive. Stop when the judge returns no
-  substantive new weakness, the score is ≥ 90, or 3 cycles have run. Keep the
-  highest-scoring plan seen.
+- `loop`: judge the revised plan with a fresh `plan-judge` (Step 1 + 1a + 1b). Continue
+  while the latest pass reports any `[BLOCKER]` weakness; stop when a pass returns none,
+  or when 3 cycles have run. Keep the **latest** revision — with closure audited, later
+  revisions dominate; do not pick by score.
+
+  The score does not gate continuation and a score delta is not the improvement signal.
+  The judge is not a fixed instrument across passes: each revision adds mechanism, new
+  mechanism is new attack surface, and a fresh judge reads a more detailed plan more
+  forensically — so scores can fall while the plan improves (one plan went
+  59 → 67 → 60 → 82 while closing nearly every weakness each pass). Log the score;
+  steer by severity and closure.
+
+  If the closure rate comes back low (under roughly 2/3 closed), the revise step itself is
+  failing — stop and tell the user rather than burning another cycle on it.
 
 ### Step 4 — Present
 Show the improved plan, then a short delta:
@@ -121,7 +146,9 @@ Show the improved plan, then a short delta:
 ```
 ## Plan improved (<mode>)
 
-Score: <before> -> <after>
+Score: <before> -> <after>  (logged for the dataset; severity is the signal)
+Closed: <n>/<m> prior weaknesses (<r> regressed)   <- loop passes only
+Remaining: <b> blocker / <ma> major / <mi> minor
 Fixed:
 - <top weakness addressed>
 - <top weakness addressed>

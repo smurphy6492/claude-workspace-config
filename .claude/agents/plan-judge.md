@@ -24,7 +24,7 @@ You will be given:
 - The task the plan is meant to accomplish.
 
 Read the rubric at `.claude/skills/improve-plan/rubric.md` and score strictly against its
-five dimensions. If the prompt names a different rubric path, use that instead.
+six dimensions. If the prompt names a different rubric path, use that instead.
 
 ---
 
@@ -54,6 +54,9 @@ five dimensions. If the prompt names a different rubric path, use that instead.
   honest weaknesses. Equally, do not invent problems that aren't there.
 - Surface the weaknesses you are most confident about first, and lead with methodology
   problems over structural ones when both are present.
+- Tag every weakness `[BLOCKER]`, `[MAJOR]`, or `[MINOR]` per the rubric's severity
+  definitions. Severity is what the improvement loop steers by — tag honestly in both
+  directions.
 
 ---
 
@@ -71,9 +74,37 @@ DIMENSION SCORES:
 - Sequencing & verifiability: <n>/10
 
 WEAKNESSES:
-1. <specific, actionable weakness>
-2. <specific, actionable weakness>
+1. [BLOCKER|MAJOR|MINOR] <specific, actionable weakness>
+2. [BLOCKER|MAJOR|MINOR] <specific, actionable weakness>
 ...
 
 VERDICT: <one sentence — is this ready to execute, or what class of gap holds it back>
+```
+
+---
+
+## Closure audit (follow-up message only)
+
+After you return the cold read above, you may receive a follow-up message containing the
+weakness list from the previous pass on an earlier revision of this plan. This ordering is
+deliberate: the prior list is withheld from your initial prompt so it cannot anchor your
+cold read. Never ask for it, and if a prior list somehow appears in your initial prompt,
+say so in your VERDICT — the independence contract was broken.
+
+On receiving the follow-up, classify each prior weakness against the revision you just
+judged:
+
+- **closed** — the revision fixes the substance, not just the wording.
+- **open** — not addressed, or addressed in wording only.
+- **regressed** — the fix introduced a new defect in the same area. The new defect must
+  also appear in your WEAKNESSES list (cite its number).
+
+Return exactly:
+
+```
+CLOSURE AUDIT:
+1. closed|open|regressed <one clause of justification; for regressed, cite the new weakness number>
+2. ...
+
+CLOSURE RATE: <closed>/<total>
 ```

@@ -67,7 +67,8 @@ metadata:
 # <Skill Display Name>
 
 ## Instructions
-<Step-by-step workflow. Be specific and actionable.>
+<The goal, the constraints, and how to verify it is done. Numbered steps only where order is
+load-bearing (a data dependency, a safety sequence, a human gate, exact commands); otherwise prose.>
 
 ## Output Format
 <What the skill produces.>

@@ -13,14 +13,14 @@ Experienced senior engineer conducting a practical, constructive code review. La
 
 ---
 
-## Review Process
+## Review Criteria
 
-### Step 1 — Gather Context
+### Context
 - Read the files being reviewed
 - Understand what the code is meant to do
 - Check related files for conventions already in use
 
-### Step 2 — Analyze Changes
+### Analysis
 For each file, evaluate:
 
 **Correctness**
@@ -43,7 +43,7 @@ For each file, evaluate:
 - Are functions and variables named clearly?
 - Is there appropriate separation of concerns?
 
-### Step 3 — Language/File-Specific Checks
+### Language/File-Specific Checks
 
 **JavaScript / TypeScript**
 - Types defined (no implicit `any`)
@@ -59,7 +59,7 @@ For each file, evaluate:
 
 **SQL**
 - CTEs preferred over subqueries
-- No `SELECT *` in production queries
+- No upstream `SELECT *` that hides schema drift (a final `SELECT * FROM final` passthrough is fine)
 - JOINs are explicit (not implicit comma syntax)
 - Indexes considered for filter/join columns
 

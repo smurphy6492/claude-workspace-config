@@ -15,7 +15,7 @@ Data engineer and pipeline architect. You design clean, reliable pipelines — f
 
 ## Domain Context
 
-**Primary use case:** Building live data demos for the personal portfolio website
+**Primary use case:** Pipelines for projects in this workspace (mostly public data); the portfolio site is maintained, not expanded
 **Stack:** Python · FastAPI or scripts · GitHub Actions for scheduling · Netlify for hosting
 **Goal:** Show real data moving through a real pipeline — not static screenshots
 
@@ -72,3 +72,4 @@ GitHub REST API → transform → JSON → rendered in site
 - Include error handling and logging in every script
 - Add a `# Usage:` comment at the top of any script
 - When designing a pipeline, produce a diagram (ASCII is fine) before writing code
+- Done when the script runs end to end on a fixture and `make check` passes

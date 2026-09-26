@@ -49,7 +49,7 @@ Required:
 - A `Makefile` with a `check` target (or equivalent command documented in `pyproject.toml`)
 - Python project with `pyproject.toml` that supports `pip install -e ".[dev]"`
 
-If no Makefile exists, stop and create one first.
+If no Makefile exists, run `/bootstrap-python-project harden` first, then continue.
 The `make check` target should run lint + type-check + tests.
 
 ---

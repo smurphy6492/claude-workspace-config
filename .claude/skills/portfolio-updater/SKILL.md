@@ -18,7 +18,7 @@ Adds a new project to Sean's personal portfolio website.
 
 ## Step 1 — Gather Project Details
 
-Ask for (or infer from context):
+Infer these from the project's README, code, and memory entry; ask only for what is missing:
 - **Project name** — what is it called?
 - **One-line description** — what does it do?
 - **Problem it solves** — what was the real challenge?
@@ -73,6 +73,8 @@ Identify the correct file(s) to edit and add:
 3. Any new tags or categories needed
 
 If the site has a data file (JSON, JS array, etc.) that drives the project grid, update that file rather than raw HTML.
+
+Before Step 5: the site builds and the new card has been screenshot-checked at desktop and mobile widths.
 
 ---
 

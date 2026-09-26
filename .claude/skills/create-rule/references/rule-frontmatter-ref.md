@@ -75,3 +75,5 @@ paths:
 | `sql-style.md` | `**/*.sql` | SQL formatting and naming |
 | `python-style.md` | `**/*.py` | Python conventions |
 | `testing-standards.md` | All files | Which tests are worth writing: expected values from outside the code, E2E over unit |
+| `mechanical-gates.md` | All files | CI + pre-commit enforce lint, types, tests |
+| `writing-style.md` | All files | Prose voice and named tells to avoid |

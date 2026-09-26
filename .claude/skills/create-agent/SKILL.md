@@ -23,7 +23,7 @@ Ask or infer:
 - **Role** — what does this agent specialize in?
 - **Tools** — which Claude tools does it need? (Read, Write, Edit, Bash, Glob, Grep, WebSearch, WebFetch)
 - **Model** — use aliases, not dated IDs: `inherit` for complex reasoning (tracks the session model), `sonnet` for fast execution, `haiku` for high-volume simple tasks. Pin a dated ID only when behavior must stay stable across model releases (e.g., a calibrated judge)
-- **Memory** — `project` (knows CLAUDE.md) or `user` (knows user preferences)
+- **Memory** — does it need notes that persist across runs? `project`, `local`, or `user` scope for its memory directory; omit if not
 - **Pre-loaded skills** — any skills that should always be available to this agent?
 
 ---

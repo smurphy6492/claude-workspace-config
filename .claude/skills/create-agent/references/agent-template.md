@@ -10,7 +10,7 @@ name: <name>                          # lowercase, hyphenated
 description: <when to invoke>         # used for agent selection routing
 tools: Read, Write, Edit, Bash        # comma-separated, only what's needed
 model: sonnet                         # alias, not dated ID — sonnet for most, inherit for complex reasoning
-memory: project                       # project = sees CLAUDE.md; user = sees user preferences
+memory: project                       # persistent memory dir scope: project | local | user (omit if none)
 # skills: []                          # optional: pre-loaded skills
 # maxTurns: 20                        # optional: limit autonomous turns
 # permissionMode: default             # optional: acceptEdits | bypassPermissions

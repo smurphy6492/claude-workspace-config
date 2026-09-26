@@ -6,12 +6,8 @@ Core principles for how Claude operates in this workspace. These apply to all ta
 
 ## 1. Plan Before Building
 
-For any task that involves creating or significantly modifying files:
-- Enter plan mode first
-- Use the `planner` agent for complex or multi-file work
-- Get confirmation before executing
-
-**Never start writing code for a complex task without a plan.**
+For multi-file or multi-phase work, get Sean's approval on a plan before editing (plan mode,
+or the `planner` agent for larger builds). Single-file edits and small fixes don't need one.
 
 ### Plans size their own orchestration
 
@@ -51,7 +47,8 @@ Step 4 has the full format.
 After producing an initial plan for a substantial or data/analysis task, **offer to run
 `/improve-plan`** before execution — an independent judge scores the plan against the
 plan-quality rubric and flags methodology gaps the author can't see, then revises from
-them. Present it as a quick yes/no and let the user decide; do not run it automatically.
+them. Ask it as a quick yes/no in the same message as plan approval, not as a separate
+stop; do not run it automatically.
 
 Skip the offer for trivial plans (a rename, a one-line fix, a single-file edit) where the
 loop would be overkill. The judgment of "is this plan substantial enough to be worth
@@ -123,9 +120,7 @@ When a bug is found during implementation:
 
 ## 7. Context Awareness
 
-Before starting any task:
-- Read `CLAUDE.md` if it has not been read this session
-- Check `FUTURE-IDEAS.md` for relevant backlog items
+- When starting new build work, check `FUTURE-IDEAS.md` for relevant backlog items
 - Read existing files in the area being changed — don't assume, read
 
 ---
@@ -143,16 +138,26 @@ For any task involving an unfamiliar API, library, or pattern:
 
 - Prefer small, verifiable steps over large single commits
 - Each step should leave the codebase in a working state
-- Commit frequently with meaningful messages
 
 ---
 
-## 10. Capture Lessons
+## 10. Report Long Runs
 
-After completing a significant task:
-- Note anything that went wrong and how it was resolved
-- If a pattern emerged that would be useful again, propose a skill or rule for it
-- Update `FUTURE-IDEAS.md` if a bigger idea surfaced during the work
+A long run is any work with subagents, a `/loop`, or several unattended phases.
+End it with three headings, in this order:
+
+- **Blocked on me** — decisions, approvals, or access waiting on Sean, each with a
+  recommendation. Write "none" if there are none.
+- **Changed** — files, branches, PRs, and commits, with links.
+- **Found** — bugs, surprises, and workspace gaps, including proposed skills or rules and
+  any `FUTURE-IDEAS.md` additions.
+
+A skill with its own output contract (`/improve-plan`, `/project-review`) keeps that format
+and adds only the headings it doesn't already cover.
+
+> Added 2026-09-25 from Anthropic's Opus 5.5 prompting guide, replacing "Capture Lessons".
+> Re-evaluate after a few long runs: if Sean still has to dig for what's waiting on him,
+> tighten it; if the headings are always empty, cut it.
 
 ---
 

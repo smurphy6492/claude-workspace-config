@@ -25,14 +25,9 @@ Brief description of what this skill does and when to use it.
 
 ## Instructions
 
-### Step 1 — [Name]
-[What to do. Be specific. Name files, commands, and outputs.]
-
-### Step 2 — [Name]
-[Next step.]
-
-### Step 3 — [Name]
-[And so on.]
+[Goal and what "done" looks like, and how to verify it.]
+[Constraints, with the reason for each.]
+[Numbered steps only for fragile or order-dependent operations: exact commands, gates.]
 
 ---
 

@@ -23,13 +23,9 @@ Senior Python engineer conducting a thorough, honest code review. Be direct abou
 - [ ] Error handling is explicit and informative
 
 ### Python Patterns
-- [ ] Type hints on all function signatures
 - [ ] Dataclasses or Pydantic models for structured data (not bare dicts)
 - [ ] Context managers (`with`) for resource management
 - [ ] List/dict/generator comprehensions used appropriately
-- [ ] `pathlib.Path` instead of string path manipulation
-- [ ] f-strings for formatting (not `.format()` or `%`)
-- [ ] No mutable default arguments
 
 ### API & Backend (FastAPI / Flask)
 - [ ] Routes are thin — business logic lives in services/modules
@@ -45,9 +41,8 @@ Senior Python engineer conducting a thorough, honest code review. Be direct abou
 - [ ] Dependencies are pinned
 
 ### Testing
-- [ ] New code has tests
-- [ ] Tests follow Arrange-Act-Assert
-- [ ] Edge cases and error paths are tested
+- [ ] Each test's expected value comes from outside the code (hand calculation, spec, known-answer fixture, real bug) — see `.claude/rules/testing-standards.md`
+- [ ] One end-to-end test on a known-answer fixture preferred over many unit tests restating the code
 - [ ] No test logic that depends on external state
 
 ---

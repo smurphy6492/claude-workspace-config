@@ -18,7 +18,7 @@ Complete reference for YAML frontmatter fields in `SKILL.md` files.
 | Field | Type | Description |
 |---|---|---|
 | `argument-hint` | string | Example input shown as a hint when skill loads |
-| `allowed-tools` | string | Comma-separated list of tools this skill may use |
+| `allowed-tools` | string | Tools pre-approved (no permission prompt) while the skill is active; does not restrict other tools |
 | `metadata` | block | See below |
 
 ---
@@ -58,7 +58,8 @@ metadata:
 |---|---|---|
 | `model` | string | Override default model for this skill |
 | `agent` | string | Route to a specific agent when invoked |
-| `context` | list | Additional files to load into context |
+| `context` | string | `fork` runs the skill in a forked subagent (pair with `agent`) |
+| `disable-model-invocation` | bool | Only the user can trigger it via `/name` |
 | `hooks` | object | Pre/post hooks |
 | `user-invocable` | bool | Whether users can trigger via `/name` (default: true) |
 
@@ -79,5 +80,5 @@ metadata:
 
 - Skills in `.claude/skills/<name>/SKILL.md` are auto-discovered
 - Triggered by `/name` or when description matches user intent
-- `allowed-tools` restricts which tools the skill can invoke
-- `context` files are read into context when skill loads
+- `allowed-tools` pre-approves the listed tools while the skill runs
+- `context: fork` runs the skill in a subagent instead of the main session

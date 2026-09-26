@@ -21,7 +21,7 @@ This is the *after* bookend to `/improve-plan`: that reviews the plan before you
 reviews the deliverable before you show it.
 
 The default is not a pure critique and not a blind auto-fix. It is a severity-triaged loop:
-fix the critical findings (with your approval), verify they actually closed, and write the
+fix the critical findings (the judgment calls with your approval), verify they actually closed, and write the
 medium and low findings to a backlog so nothing important is lost and nothing unimportant
 blocks you.
 
@@ -66,9 +66,11 @@ that is the payload, not the fix.
 
 In `critique-only` mode, skip to Step 5 (backlog everything, fix nothing).
 
-### Step 3 — Approve the critical fixes (human gate)
-Propose fixing the Critical findings. This is a gate — do not touch files until the user
-confirms which Criticals to fix. They may approve all, a subset, or none. A finding they
+### Step 3 — Approve the critical fixes (human gate for judgment calls)
+Split the Criticals. Mechanical ones — a code bug, or a claim that doesn't match what the
+code does — go straight to Step 4. Ones that change methodology or the narrative Sean will
+defend are a gate: do not touch those files until the user confirms which to fix. They may
+approve all, a subset, or none. A finding they
 decline stays in the backlog with a note that it was declined and why. Never fix Medium or
 Low findings automatically; those are always future-iteration.
 

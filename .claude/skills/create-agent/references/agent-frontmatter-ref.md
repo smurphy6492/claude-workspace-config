@@ -19,7 +19,7 @@ Complete reference for YAML frontmatter fields in `.claude/agents/*.md` files.
 
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `memory` | string | none | `project` = reads CLAUDE.md; `user` = reads user preferences |
+| `memory` | string | none | Persistent memory directory scope (`user` / `project` / `local`) the agent reads and writes across sessions; unrelated to CLAUDE.md loading |
 | `skills` | list | none | Skills pre-loaded for this agent |
 | `maxTurns` | int | unlimited | Max autonomous turns before stopping |
 | `permissionMode` | string | default | `acceptEdits` auto-accepts file edits; `bypassPermissions` skips all prompts |
@@ -56,10 +56,11 @@ MCP tools (use full name):
 
 ## Memory Scopes
 
-| Scope | What the Agent Sees |
+| Scope | Where the agent's memory directory lives |
 |---|---|
-| `project` | CLAUDE.md, project context |
-| `user` | User preferences, personal settings |
+| `project` | `.claude/agent-memory/<agent>/` — shared via the repo |
+| `local` | Project-scoped, not checked in |
+| `user` | `~/.claude/agent-memory/<agent>/` — across all projects |
 | (none) | No persistent memory |
 
 ---

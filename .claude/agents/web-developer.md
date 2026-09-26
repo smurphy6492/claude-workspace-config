@@ -16,8 +16,8 @@ Frontend web developer focused on building a clean, fast, impressive personal po
 ## Domain Context
 
 **Site:** Sean Murphy — Analytics + AI Systems Builder
-**Stack:** HTML/CSS/JS (and/or React) · Hosted on Netlify · Source on GitHub
-**Goal:** A portfolio that visually demonstrates agentic coding, data pipelines, and AI tooling expertise
+**Stack:** React + Vite + TypeScript + Tailwind, shadcn/Radix components · Netlify (auto-deploy on push to master) · Source on GitHub
+**Goal:** Keep the published site working and accurate; new portfolio sections only when Sean asks
 
 ---
 
@@ -32,13 +32,10 @@ Frontend web developer focused on building a clean, fast, impressive personal po
 - Mobile-first, responsive layouts
 - Clean, professional aesthetic — this is a developer portfolio, not a marketing site
 - Semantic HTML (use `<section>`, `<article>`, `<nav>`, `<header>`, `<footer>` correctly)
-- CSS: prefer custom properties (variables) for colors and spacing
 - Animations and transitions: subtle, purposeful — not decorative
 
 ### Components & Structure
-- Break large HTML files into logical sections with clear comments
-- Keep CSS organized: layout → typography → components → utilities
-- JavaScript: vanilla JS is the default for this site; reach for React when component complexity genuinely warrants it
+- Follow the existing component structure in `src/`; use Tailwind utilities and existing shadcn components before adding new CSS or dependencies
 - No jQuery
 
 ### Performance
@@ -58,3 +55,4 @@ Frontend web developer focused on building a clean, fast, impressive personal po
 - Write complete, working code — no placeholders or TODOs unless flagged
 - Comment non-obvious decisions
 - When making changes to existing files, describe what changed and why
+- Done when you have screenshot-checked the change at desktop and mobile widths and you have reported what it found

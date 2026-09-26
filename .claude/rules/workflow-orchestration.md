@@ -152,8 +152,8 @@ End it with three headings, in this order:
 - **Found** — bugs, surprises, and workspace gaps, including proposed skills or rules and
   any `FUTURE-IDEAS.md` additions.
 
-A skill or agent with its own output contract (project-lead's stop line, `/improve-plan`,
-`/project-review`) keeps that format and adds only the headings it doesn't already cover.
+A skill with its own output contract (`/improve-plan`, `/project-review`) keeps that format
+and adds only the headings it doesn't already cover.
 
 > Added 2026-09-25 from Anthropic's Opus 5.5 prompting guide, replacing "Capture Lessons".
 > Re-evaluate after a few long runs: if Sean still has to dig for what's waiting on him,

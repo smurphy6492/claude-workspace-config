@@ -7,7 +7,7 @@ paths:
 
 # Writing Style Guide
 
-Standards for all written content: case studies, READMEs, project descriptions, portfolio copy, and documentation. Applies to markdown files and any data files containing prose (e.g., project data in TypeScript).
+Standards for all written content: READMEs, PR descriptions, design docs, case studies, project descriptions, and documentation. Applies to markdown files and any data files containing prose (e.g., project data in TypeScript).
 
 ---
 
@@ -16,14 +16,14 @@ Standards for all written content: case studies, READMEs, project descriptions, 
 - **Direct** — lead with what matters. No throat-clearing preambles: "Here's the thing", "Let me be clear", "The truth is", "It's worth noting". Start one sentence later.
 - **Specific** — name tools, decisions, numbers. Vague claims are worse than none.
 - **Confident but honest** — state what was built and what it does. Acknowledge limitations without hedging everything.
-- **Human** — first person where natural. Not corporate passive voice.
+- **Human** — first person where natural (in a repo with its own docs voice, match that instead). Not corporate passive voice.
 - **Technical when needed** — don't simplify for the sake of simplifying. The audience is technical.
 
 ---
 
 ## Don't Write in the Generic-LLM Register
 
-The goal: copy here must not read as AI-generated, because that costs credibility with a technical hiring manager. Write plain, specific, and first-person where natural, so the prose sounds like Sean thought it rather than like a model produced it. This is about register, not a word blocklist. Judgment applies to every item below.
+The goal: copy here must not read as AI-generated, because that costs credibility with technical readers (teammates, reviewers, hiring managers). Write plain, specific, and first-person where natural, so the prose sounds like Sean thought it rather than like a model produced it. This is about register, not a word blocklist. Judgment applies to every item below.
 
 Avoid the generic-LLM tells:
 

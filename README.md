@@ -14,7 +14,7 @@ User Request
     v
 CLAUDE.md (routing layer)
     |
-    +---> /skill (slash command)     e.g. /systematic-debugging, /verification-loop
+    +---> /skill (slash command)     e.g. /systematic-debugging, /improve-plan
     |         |
     |         v
     |     Guided workflow with phases, gates, and structured output
@@ -30,7 +30,7 @@ CLAUDE.md (routing layer)
           Applied automatically to matching files — no invocation needed
 ```
 
-**CLAUDE.md** is the control plane. It tells Claude Code which agents exist, which skills are available, which rules are active, and how to route work. Skills are invoked explicitly (`/verification-loop`). Agents are spawned for complex tasks. Rules fire automatically on matching file patterns.
+**CLAUDE.md** is the control plane. It tells Claude Code which agents exist, which skills are available, which rules are active, and how to route work. Skills are invoked explicitly (`/improve-plan`). Agents are spawned for complex tasks. Rules fire automatically on matching file patterns.
 
 ---
 
@@ -44,7 +44,6 @@ Each agent has a defined role, tools, model, and detailed instructions. They don
 |---|---|---|
 | [`planner`](.claude/agents/planner.md) | Architecture and implementation planning | Forces structured thinking before any code is written. Prevents the "just start coding" trap. |
 | [`web-developer`](.claude/agents/web-developer.md) | Frontend — HTML/CSS/JS/React | Knows the site's stack, conventions, and accessibility requirements. |
-| [`content-writer`](.claude/agents/content-writer.md) | Portfolio copy, case studies, READMEs | Writes in a specific voice — direct, technical, not corporate. |
 | [`data-pipeline`](.claude/agents/data-pipeline.md) | ETL, API integrations, data pipelines | Handles fetch/transform/store patterns with proper error handling and scheduling. |
 | [`python-reviewer`](.claude/agents/python-reviewer.md) | Python code review | Checks types, patterns, security, testing. Outputs structured severity levels. |
 | [`code-reviewer`](.claude/agents/code-reviewer.md) | General code review (any language) | Same rigor as the Python reviewer, adapted per file type. |
@@ -59,18 +58,17 @@ Skills are guided workflows invoked with `/skill-name`. They define phases, gate
 
 | Skill | What It Does | Key Design Choice |
 |---|---|---|
+| [`/grill`](.claude/skills/grill/SKILL.md) | Adversarial questioning before a task becomes a plan | Rounds of numbered questions until nothing is silently assumed, so the plan starts from stated facts. |
+| [`/diagnose-metric`](.claude/skills/diagnose-metric/SKILL.md) | Explain why a business metric moved | Confirms the change is real and sizes it against normal variation before decomposing it into drivers. |
+| [`/optimize-dashboard`](.claude/skills/optimize-dashboard/SKILL.md) | Performance pass on a slow data-heavy dashboard | Measures first, so the fix targets the actual bottleneck. |
+| [`/create-agent`, `/create-skill`, `/create-rule`](.claude/skills/create-skill/SKILL.md) | Scaffold new agents, skills, or rules | The workspace builds its own tooling. |
 | [`/systematic-debugging`](.claude/skills/systematic-debugging/SKILL.md) | 4-phase debugging: Reproduce, Isolate, Root-Cause, Fix | Enforces discipline — no jumping to fixes before understanding the bug. |
-| [`/verification-loop`](.claude/skills/verification-loop/SKILL.md) | Pre-commit checks: lint, type-check, test, security scan | Multiple modes (`full`, `quick`, `security`) so it fits any context. |
 | [`/improve-plan`](.claude/skills/improve-plan/SKILL.md) | Score a draft plan with an independent judge, then revise it from the critique | The judge is a separate agent with a fixed rubric, so it catches the methodology footguns — leaked backtests, wrong metrics — that pass a structural read. |
 | [`/project-review`](.claude/skills/project-review/SKILL.md) | Hiring-manager review of a finished project, then fix the criticals | Triages findings by severity, fixes the critical ones with approval, re-reviews to confirm, and backlogs the rest. The after-build bookend to `/improve-plan`. |
 | [`/interview-explainer`](.claude/skills/interview-explainer/SKILL.md) | First-principles HTML walkthrough of a project or technique | Explains the math and the real code, with an interview Q&A layer, so a project can be defended in depth. Grounded in the actual implementation, with a required accuracy pass. |
-| [`/weekly-review`](.claude/skills/weekly-review/SKILL.md) | Strategic weekly brief across all projects | Produces *strategic* output, not a commit log replay. |
 | [`/bootstrap-python-project`](.claude/skills/bootstrap-python-project/SKILL.md) | Scaffold a new Python project with full tooling | One command to get pyproject.toml, ruff, mypy, pytest, pre-commit, and directory structure. |
-| [`/qa-validate`](.claude/skills/qa-validate/SKILL.md) | End-to-end functional QA | Distinct from verification-loop — this checks that features *actually work*, not just that code passes linting. |
 | [`/add-gates`](.claude/skills/add-gates/SKILL.md) | Install CI + pre-commit enforcement into a target repo | Reads the repo's existing tooling and writes the GitHub Actions workflow plus pre-commit wiring, so the checks run on their own instead of being remembered. |
-| [`/github-workflow`](.claude/skills/github-workflow/SKILL.md) | PR creation, Actions setup, repo management | Standardizes the GitHub workflow so PRs have consistent format and checks. |
 | [`/portfolio-updater`](.claude/skills/portfolio-updater/SKILL.md) | Add a new project to the portfolio site | Guided process: gather details, generate content, update site files, open PR. |
-| [`/create`](.claude/skills/create/SKILL.md) | Scaffold new agents, skills, or rules | The workspace builds its own tooling. |
 
 ### Rules — Always-On Standards
 
@@ -83,6 +81,7 @@ Rules apply automatically to files matching their glob pattern. No invocation ne
 | [`python-style`](.claude/rules/python-style.md) | `**/*.py` | Type hints, ruff formatting, pathlib, dataclasses over bare dicts. |
 | [`sql-style`](.claude/rules/sql-style.md) | `**/*.sql` | CTEs over subqueries, explicit JOINs, named CTE conventions. |
 | [`writing-style`](.claude/rules/writing-style.md) | `**/*.md`, `**/*.txt` | Voice, tone, AI trope avoidance, content structure patterns. |
+| [`testing-standards`](.claude/rules/testing-standards.md) | All files | Tests earn their place only when the expected value comes from outside the code. |
 | [`mechanical-gates`](.claude/rules/mechanical-gates.md) | All files | Every repo enforces lint, type-check, and tests as CI and pre-commit hooks, not skills you remember to run. |
 
 ### CLAUDE.md — The Control Plane
@@ -94,7 +93,7 @@ Rules apply automatically to files matching their glob pattern. No invocation ne
 - **Skill catalog** — available slash commands
 - **Rule index** — active coding standards
 - **Routing table** — "I want to X" maps to the right tool
-- **MCP server config** — external tool integrations (GitHub, Playwright)
+- **Tools** — the CLIs the workflow relies on (`gh`, `uv`)
 
 Think of it as the operating manual for a software team — except the team is a set of AI agents.
 
@@ -110,9 +109,9 @@ A few principles that shaped this setup:
 
 2. **Separate concerns.** The `web-developer` doesn't review Python. The `python-reviewer` doesn't write copy. Specialization keeps instructions focused.
 
-3. **Verify before shipping.** `/verification-loop` runs before every significant commit. Quality is a workflow, not a manual checklist.
+3. **Verify before shipping.** Lint, type-check, and tests run as pre-commit hooks and CI (`mechanical-gates`), so quality doesn't depend on remembering a checklist.
 
-4. **The workspace improves itself.** When a task reveals a missing capability, `/create` scaffolds a new agent, skill, or rule. The system grows from use.
+4. **The workspace improves itself.** When a task reveals a missing capability, `/create-agent`, `/create-skill`, or `/create-rule` scaffolds the new tooling. The system grows from use.
 
 5. **Elegance over cleverness.** Simple solutions with fewer moving parts. If code needs a comment to explain why it works, simplify the code.
 
@@ -133,7 +132,17 @@ git clone https://github.com/smurphy6492/claude-workspace-config.git
 cd claude-workspace-config
 ```
 
-Then either use this directory as your Claude Code workspace, or copy the `.claude/` directory and `CLAUDE.md` into your own project.
+Then either use this directory as your Claude Code workspace, or load it at user level so it applies in every repo:
+
+```bash
+mkdir -p ~/.claude/agents ~/.claude/skills ~/.claude/rules
+ln -s "$PWD"/.claude/rules/*.md ~/.claude/rules/
+ln -s "$PWD"/.claude/agents/planner.md ~/.claude/agents/   # repeat per agent you want
+ln -s "$PWD"/.claude/skills/grill ~/.claude/skills/        # repeat per skill you want
+```
+
+Symlinks keep the repo the single source of truth. At user level, a repo's own `CLAUDE.md`,
+`AGENTS.md`, and skills take precedence where they overlap (see `workflow-orchestration.md`).
 
 ### What's NOT included
 

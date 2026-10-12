@@ -5,8 +5,13 @@ paths:
 
 # Mechanical Quality Gates
 
-Every project repo in this workspace gets enforced lint, type-check, and test on every change.
+Every repo I own gets enforced lint, type-check, and test on every change.
 Quality checks live in hooks and CI, not as optional skills.
+
+In a repo that already has its own checks (a `Makefile`, `justfile`, `package.json` scripts,
+`bin/` scripts, an existing CI workflow), the repo's tooling is the gate: find its check command
+and run that before committing. Don't introduce this workspace's Python tooling into a repo in
+another language, and don't add gates to a repo I don't own without asking first.
 
 ---
 
@@ -35,8 +40,8 @@ For Python repos:
 - **Type-check** (mypy)
 - **Tests** (pytest)
 
-These run via `make check` or equivalent.
-The Makefile defines the commands; CI and hooks invoke the Makefile.
+These run via `make check` or equivalent (`just check`, `yarn check`, `bin/ci`).
+The task runner defines the commands; CI and hooks invoke the task runner.
 
 ---
 
@@ -56,7 +61,6 @@ If one fails, the change does not land.
 ## Implementation
 
 This rule states the standard.
-Implementation details live in MECHANICAL-GATES-PLAN.md.
 Artifacts (CI workflows, Makefiles, pre-commit configs) live in project repos, not in this workspace config.
 
 Use the `/add-gates` skill to deploy enforcement into a new repo.

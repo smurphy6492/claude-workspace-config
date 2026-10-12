@@ -47,7 +47,10 @@ This skill invokes existing tooling; it does not create check logic.
 
 Required:
 - A `Makefile` with a `check` target (or equivalent command documented in `pyproject.toml`)
-- Python project with `pyproject.toml` that supports `pip install -e ".[dev]"`
+- Python project with `pyproject.toml` (installed with `uv sync`, or `pip install -e ".[dev]"` if the repo has no `uv.lock`)
+
+If the repo already has CI or checks in another language, stop and follow `mechanical-gates.md`:
+the repo's own tooling is the gate. Ask before writing into a repo I don't own.
 
 If no Makefile exists, run `/bootstrap-python-project harden` first, then continue.
 The `make check` target should run lint + type-check + tests.
@@ -98,27 +101,26 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v6
         with:
           python-version: "3.11"
-          cache: pip
+          enable-cache: true
 
       - name: Install dependencies
-        run: pip install -e ".[dev]"
+        run: uv sync --all-extras
 
       - name: Run checks
-        run: make check
+        run: uv run make check
 
       - name: Run pre-commit hooks (docs, SQL, hygiene)
-        run: |
-          pip install pre-commit
-          pre-commit run --all-files
+        run: uvx pre-commit run --all-files
 ```
 
 Adjustments:
 - If the repo uses a different check command, replace `make check` with that command
 - If `requires-python` specifies a different version, use that version
+- If the repo has no `uv.lock`, use `actions/setup-python@v5` with `pip install -e ".[dev]"` instead
 - If the repo has additional setup steps (e.g., downloading models), add them before `Run checks`
 
 ### Step 2.5: Deploy Doc and SQL Linters

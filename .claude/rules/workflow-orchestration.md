@@ -187,7 +187,21 @@ Two corollaries worth stating, both learned the expensive way:
 
 ---
 
-## 12. Ask Before Assuming
+## 12. Repo Conventions Win
+
+This config loads at user level, so it is active inside repos that have their own `CLAUDE.md`,
+`AGENTS.md`, `.claude/` agents and skills, and docs. Where the two overlap, the repo wins:
+its scope rules, check commands, branch and PR conventions, and skills (prefer a repo's `/pr` or
+`/review` over the generic workflow here).
+
+Paths like `.claude/skills/...` and `projects/` in this config refer to the workspace config repo
+(`<workspace-root>`, named in the user-level `CLAUDE.md`), not the current project. Workspace
+artifacts (plans, run data, new agents, skills, and rules) go there. Never add workspace
+tooling to a repo I don't own without asking.
+
+---
+
+## 13. Ask Before Assuming
 
 When a request could reasonably mean two different things, and the two readings lead to
 different work, use `AskUserQuestion` before starting.

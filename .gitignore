@@ -1,6 +1,9 @@
 # Machine-specific settings (permissions, env vars differ per machine)
 .claude/settings.local.json
 
+# Per-project plans and notes (may describe private work)
+projects/
+
 # OS files
 .DS_Store
 Thumbs.db

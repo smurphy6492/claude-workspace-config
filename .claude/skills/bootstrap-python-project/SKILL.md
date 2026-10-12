@@ -83,8 +83,8 @@ addopts = "--cov=src --cov-report=term-missing"
 .PHONY: install format lint type-check test check clean
 
 install:
-	pip install -e ".[dev]"
-	pre-commit install
+	uv sync --all-extras
+	uv run pre-commit install
 
 # `check` must never modify files, or CI and local runs disagree. Fixing lives here.
 format:
@@ -177,8 +177,7 @@ htmlcov/
 ### Step 6 — Verify
 Run and confirm:
 ```bash
-pip install -e ".[dev]"
-pre-commit install
+make install
 make check
 ```
 

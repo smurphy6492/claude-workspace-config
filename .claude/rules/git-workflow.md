@@ -23,7 +23,9 @@ chore/cleanup-old-work-config
 Rules:
 - Lowercase and hyphens only (no underscores, no spaces)
 - Keep descriptions short but meaningful (3-5 words)
-- Branch from `master` (personal-website repo) or `main` for new repos
+- Branch from the repo's default branch
+- A repo with its own branch, commit, or PR conventions (in its `CLAUDE.md`, `AGENTS.md`,
+  `CONTRIBUTING.md`, or a `/pr` skill) uses those instead of this file
 
 ---
 
@@ -69,12 +71,11 @@ Rules:
 
 | Use | For |
 |---|---|
-| `github` MCP | PRs, issues, file contents, branches, commits, search |
-| `gh` CLI | Actions runs, secrets, releases, repo settings and visibility, branch protection — the MCP has no tools for these |
+| `gh` CLI | PRs, issues, reviews, Actions runs, releases, repo settings, API calls (`gh api`) |
 | `git` | Local work: stage, commit, checkout, push |
 
-`gh` is not always on the bash PATH — on Windows it often needs its full path — which is a
-further reason to reach for the MCP where both would work.
+If the repo has a PR template (`.github/pull_request_template.md`), fill that in instead of the
+template below.
 
 ### PR Body Template
 ```markdown
@@ -104,6 +105,7 @@ The one thing no gate checks: update the README or docs if behavior changed.
 - No direct commits to the default branch for significant changes
 - Use PRs for anything beyond trivial fixes
 - Squash or merge — keep history readable
+- Never merge a PR, or push to a default branch, without explicit approval in the current session
 
 ---
 
